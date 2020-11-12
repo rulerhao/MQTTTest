@@ -6,8 +6,10 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <MQTTClient/MQTTClient.h>
+#import <MQTTWebsocketTransport.h>
 
-@interface ViewController : UIViewController
+@interface ViewController : UIViewController <MQTTSessionDelegate>
 
 
 @end
