@@ -20,28 +20,34 @@ PODS:
   - MQTTClient/WebsocketL (0.15.3):
     - MQTTClient/MinL
     - SocketRocket
+  - Protobuf (4.0.0-rc1)
+  - ProtocolBuffers (1.9.11)
   - SocketRocket (0.5.1)
 
 DEPENDENCIES:
   - MQTTClient
-  - MQTTClient/Manager
   - MQTTClient/ManagerL
-  - MQTTClient/Min
   - MQTTClient/MinL
   - MQTTClient/Websocket
   - MQTTClient/WebsocketL
+  - Protobuf (~> 4.0.0-rc1)
+  - ProtocolBuffers
 
 SPEC REPOS:
   trunk:
     - CocoaLumberjack
     - MQTTClient
+    - Protobuf
+    - ProtocolBuffers
     - SocketRocket
 
 SPEC CHECKSUMS:
   CocoaLumberjack: e8955b9d337ac307103b0a34fd141c32f27e53c5
   MQTTClient: 0dfa04e789479c2e461786464969895c1fcb0875
+  Protobuf: 4f17d10ac4c40626e36f2612842f1a9bc9cf734f
+  ProtocolBuffers: d509225eb2ea43d9582a59e94348fcf86e2abd65
   SocketRocket: d57c7159b83c3c6655745cd15302aa24b6bae531
 
-PODFILE CHECKSUM: ac0ef1a266162c25d6d3e682a650cf5cc9211a0c
+PODFILE CHECKSUM: f0fd6c5ebce49a4c090a0b2227e237a973197c30
 
 COCOAPODS: 1.10.0
