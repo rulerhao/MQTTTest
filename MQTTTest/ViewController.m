@@ -6,6 +6,7 @@
 //
 
 #import "ViewController.h"
+#import "Sensor.pbobjc.h"
 
 MQTTSession* MySeccion;
 
@@ -23,6 +24,20 @@ MQTTSession* MySeccion;
     NSString *TestStr = [swift protoBufSwift];
     NSLog(@"TestStr:%@", TestStr);
     [swift proto2];
+    
+    Sensor *sensor = [[Sensor alloc] init];
+    sensor.batteryProperty.value = 50;
+    sensor.breathProperty.value = true;
+    sensor.temperatureProperty.value = 23;
+    
+    NSData *sensorData = [sensor data];
+    NSLog(@"sensorData:%@", sensorData);
+    NSError *error = nil;
+    
+    Sensor *sensorGet = [Sensor parseFromData:sensorData
+                                        error:nil];
+    NSLog(@"sensorGet:%d", sensorGet.batteryProperty.value);
+    
     
     // Do any additional setup after loading the view.
     

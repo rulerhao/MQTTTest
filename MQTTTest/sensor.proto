@@ -2,10 +2,6 @@ syntax = "proto3";
 
 package ouhub.device;
 
-    import "protobuf-objc/src/compiler/google/protobuf/objectivec-descriptor.proto";
-    option (google.protobuf.objectivec_file_options).package = "ouhub.device";
-    option (google.protobuf.objectivec_file_options).class_prefix = "DE";
-    option (google.protobuf.objectivec_file_options).relax_camel_case = true;
 
 // 感應器
 message Sensor {
