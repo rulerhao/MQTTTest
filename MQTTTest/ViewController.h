@@ -9,7 +9,10 @@
 #import <MQTTClient.h>
 #import <MQTTWebsocketTransport.h>
 #import <MQTTTest-Swift.h>
-
+#import "Message.pbobjc.h"
+#import "Sensor.pbobjc.h"
+#import "Device.pbobjc.h"
+#import "StringProcessFunc.h"
 @interface ViewController : UIViewController <MQTTSessionDelegate>
 
 

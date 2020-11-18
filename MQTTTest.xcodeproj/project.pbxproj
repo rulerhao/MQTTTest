@@ -14,6 +14,11 @@
 		63978743255E7A8E0070C1C9 /* DataModel.proto in Sources */ = {isa = PBXBuildFile; fileRef = 63978742255E7A8E0070C1C9 /* DataModel.proto */; };
 		63B33DC42563AF2100FBD478 /* libc++.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 63B33DC32563AF2100FBD478 /* libc++.tbd */; };
 		63B33DDC2563CAA400FBD478 /* Sensor.pbobjc.m in Sources */ = {isa = PBXBuildFile; fileRef = 63B33DDA2563CAA300FBD478 /* Sensor.pbobjc.m */; };
+		63C1FF9E2564B6E20061FCEE /* device.proto in Sources */ = {isa = PBXBuildFile; fileRef = 63C1FF9D2564B6E20061FCEE /* device.proto */; };
+		63C1FFA22564B75A0061FCEE /* message.proto in Sources */ = {isa = PBXBuildFile; fileRef = 63C1FFA12564B75A0061FCEE /* message.proto */; };
+		63C1FFA72564B8BB0061FCEE /* Message.pbobjc.m in Sources */ = {isa = PBXBuildFile; fileRef = 63C1FFA62564B8BB0061FCEE /* Message.pbobjc.m */; };
+		63C1FFAB2564B8CD0061FCEE /* Device.pbobjc.m in Sources */ = {isa = PBXBuildFile; fileRef = 63C1FFAA2564B8CD0061FCEE /* Device.pbobjc.m */; };
+		63C21D6625650F0700EC3A93 /* StringProcessFunc.m in Sources */ = {isa = PBXBuildFile; fileRef = 63C21D6525650F0700EC3A93 /* StringProcessFunc.m */; };
 		63FF2B53255BD14E008A4FBD /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 63FF2B52255BD14E008A4FBD /* AppDelegate.m */; };
 		63FF2B56255BD14E008A4FBD /* SceneDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 63FF2B55255BD14E008A4FBD /* SceneDelegate.m */; };
 		63FF2B59255BD14E008A4FBD /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 63FF2B58255BD14E008A4FBD /* ViewController.m */; };
@@ -33,6 +38,14 @@
 		63B33DC32563AF2100FBD478 /* libc++.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = "libc++.tbd"; path = "usr/lib/libc++.tbd"; sourceTree = SDKROOT; };
 		63B33DDA2563CAA300FBD478 /* Sensor.pbobjc.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Sensor.pbobjc.m; sourceTree = "<group>"; };
 		63B33DDB2563CAA300FBD478 /* Sensor.pbobjc.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Sensor.pbobjc.h; sourceTree = "<group>"; };
+		63C1FF9D2564B6E20061FCEE /* device.proto */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.protobuf; path = device.proto; sourceTree = "<group>"; };
+		63C1FFA12564B75A0061FCEE /* message.proto */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.protobuf; path = message.proto; sourceTree = "<group>"; };
+		63C1FFA52564B8BB0061FCEE /* Message.pbobjc.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Message.pbobjc.h; sourceTree = "<group>"; };
+		63C1FFA62564B8BB0061FCEE /* Message.pbobjc.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Message.pbobjc.m; sourceTree = "<group>"; };
+		63C1FFA92564B8CD0061FCEE /* Device.pbobjc.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Device.pbobjc.h; sourceTree = "<group>"; };
+		63C1FFAA2564B8CD0061FCEE /* Device.pbobjc.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Device.pbobjc.m; sourceTree = "<group>"; };
+		63C21D6425650F0700EC3A93 /* StringProcessFunc.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StringProcessFunc.h; sourceTree = "<group>"; };
+		63C21D6525650F0700EC3A93 /* StringProcessFunc.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StringProcessFunc.m; sourceTree = "<group>"; };
 		63FF2B4E255BD14E008A4FBD /* MQTTTest.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MQTTTest.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		63FF2B51255BD14E008A4FBD /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		63FF2B52255BD14E008A4FBD /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -89,6 +102,8 @@
 				63FF2B55255BD14E008A4FBD /* SceneDelegate.m */,
 				63FF2B57255BD14E008A4FBD /* ViewController.h */,
 				63FF2B58255BD14E008A4FBD /* ViewController.m */,
+				63C21D6425650F0700EC3A93 /* StringProcessFunc.h */,
+				63C21D6525650F0700EC3A93 /* StringProcessFunc.m */,
 				63978742255E7A8E0070C1C9 /* DataModel.proto */,
 				63FF2B5A255BD14E008A4FBD /* Main.storyboard */,
 				63FF2B5D255BD151008A4FBD /* Assets.xcassets */,
@@ -97,6 +112,12 @@
 				63FF2B63255BD151008A4FBD /* main.m */,
 				6397873C255E71CE0070C1C9 /* SayBigVoice.swift */,
 				63978735255E619B0070C1C9 /* ProtoBufSwift.swift */,
+				63C1FFA12564B75A0061FCEE /* message.proto */,
+				63C1FFA52564B8BB0061FCEE /* Message.pbobjc.h */,
+				63C1FFA62564B8BB0061FCEE /* Message.pbobjc.m */,
+				63C1FF9D2564B6E20061FCEE /* device.proto */,
+				63C1FFA92564B8CD0061FCEE /* Device.pbobjc.h */,
+				63C1FFAA2564B8CD0061FCEE /* Device.pbobjc.m */,
 				630B1D5A25626D8400B4F2C6 /* sensor.proto */,
 				63B33DDB2563CAA300FBD478 /* Sensor.pbobjc.h */,
 				63B33DDA2563CAA300FBD478 /* Sensor.pbobjc.m */,
@@ -241,10 +262,15 @@
 				63B33DDC2563CAA400FBD478 /* Sensor.pbobjc.m in Sources */,
 				63FF2B59255BD14E008A4FBD /* ViewController.m in Sources */,
 				63978743255E7A8E0070C1C9 /* DataModel.proto in Sources */,
+				63C21D6625650F0700EC3A93 /* StringProcessFunc.m in Sources */,
 				6397873D255E71CE0070C1C9 /* SayBigVoice.swift in Sources */,
 				63FF2B53255BD14E008A4FBD /* AppDelegate.m in Sources */,
+				63C1FFA72564B8BB0061FCEE /* Message.pbobjc.m in Sources */,
+				63C1FFAB2564B8CD0061FCEE /* Device.pbobjc.m in Sources */,
 				63FF2B64255BD151008A4FBD /* main.m in Sources */,
 				63978736255E619B0070C1C9 /* ProtoBufSwift.swift in Sources */,
+				63C1FF9E2564B6E20061FCEE /* device.proto in Sources */,
+				63C1FFA22564B75A0061FCEE /* message.proto in Sources */,
 				63FF2B56255BD14E008A4FBD /* SceneDelegate.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
