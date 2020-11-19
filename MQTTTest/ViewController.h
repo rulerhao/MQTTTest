@@ -13,6 +13,9 @@
 #import "Sensor.pbobjc.h"
 #import "Device.pbobjc.h"
 #import "StringProcessFunc.h"
+#import "StampTimeProcess.h"
+#import "PublishDataFor4320.h"
+
 @interface ViewController : UIViewController <MQTTSessionDelegate>
 
 
