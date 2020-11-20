@@ -5,13 +5,13 @@
 //  Created by louie on 2020/11/20.
 //
 
-#import "TypesCoversion.h"
+#import "TypesConversion.h"
 
-@interface TypesCoversion ()
+@interface TypesConversion ()
 
 @end
 
-@implementation TypesCoversion
+@implementation TypesConversion
 
 - (void)viewDidLoad {
     [super viewDidLoad];

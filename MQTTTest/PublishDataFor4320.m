@@ -102,8 +102,8 @@ Motion_Z              : (float)      motion_Z
     
     [message setPostMeasureRequest:request];
     [message setMessageId:[self getTimeStampAsHexString]];
-    [message setClientId:@"Jake"];
-    
+    // 未來會修正為 32 bit 的 vendor uuid
+    [message setClientId:@"Jack"];
     NSData *publishData = [message data];
     NSLog(@"ddata%@", publishData);
     return publishData;
@@ -128,12 +128,19 @@ Motion_Z              : (float)      motion_Z
     // NSTimeInterval is defined as double
     NSNumber *timeStampObj = [NSNumber numberWithDouble: timeStamp];
     NSString *timeStampString = [timeStampObj stringValue];
+    
+    
+    ushort LocationOfPoint = [timeStampString rangeOfString:@"."].location;
+    
     NSString *StringBeforePoint = [stringProcessFunctioc getSubString:timeStampString
-                                                               length:10
+                                                               length:LocationOfPoint - 1 + 1
                                                              location:0];
+    
+    ushort LengthOfMili = 3;
     NSString *StringAfterPoint = [stringProcessFunctioc getSubString:timeStampString
-                                                              length:3
-                                                            location:11];
+                                                              length:LengthOfMili
+                                                            location:LocationOfPoint + 1];
+    
     NSString *StringMerged = [stringProcessFunctioc MergeTwoString:StringBeforePoint
                                                          SecondStr:StringAfterPoint];
     

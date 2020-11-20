@@ -18,6 +18,8 @@ MQTTSession* MySeccion;
 
 @implementation ViewController
 
+MQTTSession *Session;
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     
@@ -41,32 +43,72 @@ MQTTSession* MySeccion;
     [MySeccion setTransport:Transport];
     [MySeccion setDelegate:self];
     
+    // UserName 和 Password 似乎非必要
     [MySeccion setUserName:@"kjump"];
     [MySeccion setPassword:@"1234qwer"];
-    [MySeccion setClientId:@"Jake"];
+    // 未來會修正為 32 bit 的 vendor uuid
+    [MySeccion setClientId:@"Jack"];
+    NSLog(@"VendorUUID:%@", [[[UIDevice currentDevice] identifierForVendor] UUIDString]);
     
     [MySeccion setKeepAliveInterval:5];
-    
-    [MySeccion addObserver:self
-                forKeyPath:@"state"
-                   options:NSKeyValueObservingOptionNew|NSKeyValueObservingOptionOld
-                   context:nil];
     
     [MySeccion connectAndWaitTimeout:15];
     
     
 }
+/**
+ * 按下 Publish button 的觸發事件
+ */
+- (IBAction)TouchDownPublishButton:(id)sender
+{
+    PublishDataFor4320 *publishDataFor4320 = [[PublishDataFor4320 alloc] init];
+    NSData *PublishData = [publishDataFor4320 getPublishData:@"KS-4310"
+                                               Device_Serial:@"S15"
+                                                 Device_UUID:@"92ee96a6-ff9a-11ea-8fd3-0242ac160004"
+                                                Temperature1:30
+                                                Temperature2:35
+                                                Temperature3:40
+                                                     Battery:50
+                                                      Breath:false
+                                                    Motion_X:123.1
+                                                    Motion_Y:252.6
+                                                    Motion_Z:929.1];
+    
+    TypesConversion *typesConversion = [[TypesConversion alloc] init];
+    NSLog(@"ADADAADD:%@", [typesConversion getHEX:PublishData]);
+    [Session publishData:PublishData
+                 onTopic:@"/ouhub/requests"
+                  retain:NO
+                     qos:MQTTQosLevelAtMostOnce
+          publishHandler:^(NSError *error)
+    {
+        if (error)
+        {
+            NSLog(@"PulbishForSameTimeerror - %@",error);
+        }
+        
+        else
+        {
+            NSLog(@"send ok");
+        }
+    }];
+}
 
+/**
+ * 當執行 [MySeccion connectAndWaitTimeout:time]; 時觸發
+ */
 -(void)
 handleEvent:(MQTTSession *)session
       event:(MQTTSessionEvent)eventCode
       error:(NSError *)error
 {
+    Session = session;
     NSLog(@"actuallyScssion:%ld ", (long)eventCode);
     if (eventCode == MQTTSessionEventConnected)
     {
         NSLog(@"MQTTStatus : Connected");
         // Subscribe part
+        
         [session subscribeToTopic:@"/ouhub/requests"
                             atLevel:MQTTQosLevelAtMostOnce
                    subscribeHandler:
@@ -79,55 +121,11 @@ handleEvent:(MQTTSession *)session
             }
             else
             {
+                Session = session;
                 NSLog(@"MQTTStatusOK:%@",gQoss);
-                
-                [NSTimer scheduledTimerWithTimeInterval:1
-                                                repeats:YES
-                                                  block:^(NSTimer * _Nonnull timer)
-                {
-                    static NSInteger num = 0;
-                    
-                    PublishDataFor4320 *publishDataFor4320 = [[PublishDataFor4320 alloc] init];
-                    NSData *PublishData = [publishDataFor4320 getPublishData:@"KS-4310"
-                                                               Device_Serial:@"S15"
-                                                                 Device_UUID:@"92ee96a6-ff9a-11ea-8fd3-0242ac160004"
-                                                                Temperature1:30
-                                                                Temperature2:35
-                                                                Temperature3:40
-                                                                     Battery:50
-                                                                      Breath:false
-                                                                    Motion_X:123.1
-                                                                    Motion_Y:252.6
-                                                                    Motion_Z:929.1];
-                    
-                    [session publishData:PublishData
-                                 onTopic:@"/ouhub/requests"
-                                  retain:NO
-                                     qos:MQTTQosLevelAtMostOnce
-                          publishHandler:^(NSError *error)
-                    {
-                        if (error)
-                        {
-                            NSLog(@"PulbishForSameTimeerror - %@",error);
-                        }
-                        
-                        else
-                        {
-                            NSLog(@"send ok");
-                        }
-                    }];
-                    
-                    NSLog(@"%ld", (long)num);
-                    if (num > 1)
-                    {
-                        [timer invalidate];
-                        NSLog(@"end");
-                    }
-                 
-                }];
-                 
             }
         }];
+         
     }
     else if (eventCode == MQTTSessionEventConnectionRefused)
     {
@@ -162,7 +160,7 @@ handleEvent:(MQTTSession *)session
           retained:(BOOL)retained
                mid:(unsigned int)mid
 {
-    TypesCoversion *typesConversion = [[TypesCoversion alloc] init];
+    TypesConversion *typesConversion = [[TypesConversion alloc] init];
     NSLog(@"IntoNewMessage");
     NSLog(@"DataForReturn:%@", [typesConversion getHEX:data]);
     NSLog(@"DataForReturn:%lu", (unsigned long)[[typesConversion getHEX:data] length]);
