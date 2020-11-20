@@ -8,13 +8,13 @@
 #import <UIKit/UIKit.h>
 #import <MQTTClient.h>
 #import <MQTTWebsocketTransport.h>
-#import <MQTTTest-Swift.h>
 #import "Message.pbobjc.h"
 #import "Sensor.pbobjc.h"
 #import "Device.pbobjc.h"
 #import "StringProcessFunc.h"
 #import "StampTimeProcess.h"
 #import "PublishDataFor4320.h"
+#import "TypesCoversion.h"
 
 @interface ViewController : UIViewController <MQTTSessionDelegate>
 

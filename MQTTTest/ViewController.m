@@ -21,14 +21,14 @@ MQTTSession* MySeccion;
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    //ˇˇˇˇˇˇˇˇˇˇˇˇ 這邊不用管 只是無聊測試ˇˇˇˇˇˇˇˇˇˇˇˇˇˇˇˇˇˇ
-    /*
-    ProtoBufSwift *swift = [[ProtoBufSwift alloc] init];
-    NSString *TestStr = [swift protoBufSwift];
-    NSLog(@"TestStr:%@", TestStr);
-    [swift proto2];
-     */
-    //^^^^^^^^^^^^ 這邊不用管 只是無聊測試^^^^^^^^^^^^^^^^^^
+    /**
+     * 取得 Vendor Identifier
+     * 此 identifier 會依據app 的發行商而變更
+     * 也因此單一對於想取得手機的身份卻又不希望他變更時可以選用這個
+    */
+    
+    NSString *VendorIdentifier = [[[UIDevice currentDevice] identifierForVendor] UUIDString];
+    NSLog(@"UUID2:%@", [[[UIDevice currentDevice] identifierForVendor] UUIDString]);
     
     MQTTWebsocketTransport *Transport = [[MQTTWebsocketTransport alloc] init];
     
@@ -65,7 +65,7 @@ handleEvent:(MQTTSession *)session
     NSLog(@"actuallyScssion:%ld ", (long)eventCode);
     if (eventCode == MQTTSessionEventConnected)
     {
-        NSLog(@"MQTT : Connected");
+        NSLog(@"MQTTStatus : Connected");
         // Subscribe part
         [session subscribeToTopic:@"/ouhub/requests"
                             atLevel:MQTTQosLevelAtMostOnce
@@ -75,11 +75,11 @@ handleEvent:(MQTTSession *)session
         {
             if (error)
             {
-                NSLog(@"error:%@",error);
+                NSLog(@"MQTTStatuserror:%@",error);
             }
             else
             {
-                NSLog(@"OK:%@",gQoss);
+                NSLog(@"MQTTStatusOK:%@",gQoss);
                 
                 [NSTimer scheduledTimerWithTimeInterval:1
                                                 repeats:YES
@@ -89,8 +89,8 @@ handleEvent:(MQTTSession *)session
                     
                     PublishDataFor4320 *publishDataFor4320 = [[PublishDataFor4320 alloc] init];
                     NSData *PublishData = [publishDataFor4320 getPublishData:@"KS-4310"
-                                                               Device_Serial:@"S10"
-                                                                 Device_UUID:@"92ee96a5-ff9a-11ea-8fd3-0242ac160004"
+                                                               Device_Serial:@"S15"
+                                                                 Device_UUID:@"92ee96a6-ff9a-11ea-8fd3-0242ac160004"
                                                                 Temperature1:30
                                                                 Temperature2:35
                                                                 Temperature3:40
@@ -108,7 +108,7 @@ handleEvent:(MQTTSession *)session
                     {
                         if (error)
                         {
-                            NSLog(@"error - %@",error);
+                            NSLog(@"PulbishForSameTimeerror - %@",error);
                         }
                         
                         else
@@ -123,33 +123,35 @@ handleEvent:(MQTTSession *)session
                         [timer invalidate];
                         NSLog(@"end");
                     }
+                 
                 }];
+                 
             }
         }];
     }
     else if (eventCode == MQTTSessionEventConnectionRefused)
     {
-        NSLog(@"MQTT : refused");
+        NSLog(@"MQTTStatus : refused");
     }
     else if (eventCode == MQTTSessionEventConnectionClosed)
     {
-        NSLog(@"MQTT : closed");
+        NSLog(@"MQTTStatus : closed");
         [session connectAndWaitTimeout:15];
     }
     else if (eventCode == MQTTSessionEventConnectionError)
     {
-        NSLog(@"MQTT : error");
+        NSLog(@"MQTTStatus : error");
     }
     else if (eventCode == MQTTSessionEventProtocolError)
     {
-        NSLog(@"MQTT : MQTTSessionEventProtocolError");
+        NSLog(@"MQTTStatus : MQTTSessionEventProtocolError");
     }
     else{//MQTTSessionEventConnectionClosedByBroker
-        NSLog(@"MQTT : other");
+        NSLog(@"MQTTStatus : other");
     }
     if (error)
     {
-        NSLog(@"error  -- %@",error);
+        NSLog(@"MQTTStatus error  -- %@",error);
     }
 }
 
@@ -160,15 +162,16 @@ handleEvent:(MQTTSession *)session
           retained:(BOOL)retained
                mid:(unsigned int)mid
 {
+    TypesCoversion *typesConversion = [[TypesCoversion alloc] init];
     NSLog(@"IntoNewMessage");
-    NSLog(@"DataForReturn:%@", [self getHEX:data]);
-    NSLog(@"DataForReturn:%lu", (unsigned long)[[self getHEX:data] length]);
+    NSLog(@"DataForReturn:%@", [typesConversion getHEX:data]);
+    NSLog(@"DataForReturn:%lu", (unsigned long)[[typesConversion getHEX:data] length]);
     NSString *NewString = @"";
     StringProcessFunc *stringProcessFunction = [[StringProcessFunc alloc] init];
-    for(int i = 0; i < [[self getHEX:data] length]; i = i + 2)
+    for(int i = 0; i < [[typesConversion getHEX:data] length]; i = i + 2)
     {
         NewString = [stringProcessFunction MergeTwoString:NewString
-                                                SecondStr:[stringProcessFunction getSubString:[self getHEX:data]
+                                                SecondStr:[stringProcessFunction getSubString:[typesConversion getHEX:data]
                                                                                        length:2
                                                                                      location:i]];
         NewString = [stringProcessFunction MergeTwoString:NewString SecondStr:@" "];
@@ -177,20 +180,4 @@ handleEvent:(MQTTSession *)session
     NSLog(@"NewString :%@", NewString);
     
 }
-
-/*!
- * @param data_bytes : 要被轉換為 Hex String 的 NSData
- *  @discussion
- *      將 NSData 轉換為 HexString
- *
- */
-- (NSString *)getHEX:(NSData *)data_bytes
-{
-    const unsigned char *dataBytes = [data_bytes bytes];
-    NSMutableString *ret = [NSMutableString stringWithCapacity:[data_bytes length] * 2];
-    for (int i = 0; i<[data_bytes length]; ++i)
-    [ret appendFormat:@"%02lX", (unsigned long)dataBytes[i]];
-    return ret;
-}
-
 @end

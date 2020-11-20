@@ -43,8 +43,6 @@ getSubString    : (NSString *) Ori_String
 length          : (NSUInteger) Length
 location        : (NSUInteger) Location {
     NSRange search_Range;
-    search_Range.length = Length;
-    search_Range.location = Location;
     if(Length + Location >= [Ori_String length])
     {
         Length = [Ori_String length] - Location;
@@ -57,6 +55,8 @@ location        : (NSUInteger) Location {
     {
         return @"";
     }
+    search_Range.length = Length;
+    search_Range.location = Location;
     NSString *new_String = [Ori_String substringWithRange:search_Range];
     
     return new_String;

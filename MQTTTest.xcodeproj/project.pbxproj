@@ -11,9 +11,7 @@
 		630A210A256603CA001F56DF /* StampTimeProcess.m in Sources */ = {isa = PBXBuildFile; fileRef = 630A2109256603CA001F56DF /* StampTimeProcess.m */; };
 		630A21142566064D001F56DF /* PublishDataFor4320.m in Sources */ = {isa = PBXBuildFile; fileRef = 630A21132566064D001F56DF /* PublishDataFor4320.m */; };
 		630B1D5B25626D8400B4F2C6 /* sensor.proto in Sources */ = {isa = PBXBuildFile; fileRef = 630B1D5A25626D8400B4F2C6 /* sensor.proto */; };
-		63978736255E619B0070C1C9 /* ProtoBufSwift.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63978735255E619B0070C1C9 /* ProtoBufSwift.swift */; };
-		6397873D255E71CE0070C1C9 /* SayBigVoice.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6397873C255E71CE0070C1C9 /* SayBigVoice.swift */; };
-		63ACB48325665B960033EC3F /* DeviceInformation.m in Sources */ = {isa = PBXBuildFile; fileRef = 63ACB48225665B960033EC3F /* DeviceInformation.m */; };
+		634B87C3256769B7000A01B6 /* TypesCoversion.m in Sources */ = {isa = PBXBuildFile; fileRef = 634B87C2256769B7000A01B6 /* TypesCoversion.m */; };
 		63B33DDC2563CAA400FBD478 /* Sensor.pbobjc.m in Sources */ = {isa = PBXBuildFile; fileRef = 63B33DDA2563CAA300FBD478 /* Sensor.pbobjc.m */; };
 		63C1FF9E2564B6E20061FCEE /* device.proto in Sources */ = {isa = PBXBuildFile; fileRef = 63C1FF9D2564B6E20061FCEE /* device.proto */; };
 		63C1FFA22564B75A0061FCEE /* message.proto in Sources */ = {isa = PBXBuildFile; fileRef = 63C1FFA12564B75A0061FCEE /* message.proto */; };
@@ -36,11 +34,8 @@
 		630A21122566064D001F56DF /* PublishDataFor4320.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PublishDataFor4320.h; sourceTree = "<group>"; };
 		630A21132566064D001F56DF /* PublishDataFor4320.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PublishDataFor4320.m; sourceTree = "<group>"; };
 		630B1D5A25626D8400B4F2C6 /* sensor.proto */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.protobuf; path = sensor.proto; sourceTree = "<group>"; };
-		63978734255E619A0070C1C9 /* MQTTTest-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "MQTTTest-Bridging-Header.h"; sourceTree = "<group>"; };
-		63978735255E619B0070C1C9 /* ProtoBufSwift.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProtoBufSwift.swift; sourceTree = "<group>"; };
-		6397873C255E71CE0070C1C9 /* SayBigVoice.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SayBigVoice.swift; sourceTree = "<group>"; };
-		63ACB48125665B960033EC3F /* DeviceInformation.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DeviceInformation.h; sourceTree = "<group>"; };
-		63ACB48225665B960033EC3F /* DeviceInformation.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DeviceInformation.m; sourceTree = "<group>"; };
+		634B87C1256769B7000A01B6 /* TypesCoversion.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TypesCoversion.h; sourceTree = "<group>"; };
+		634B87C2256769B7000A01B6 /* TypesCoversion.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TypesCoversion.m; sourceTree = "<group>"; };
 		63B33DC32563AF2100FBD478 /* libc++.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = "libc++.tbd"; path = "usr/lib/libc++.tbd"; sourceTree = SDKROOT; };
 		63B33DDA2563CAA300FBD478 /* Sensor.pbobjc.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Sensor.pbobjc.m; sourceTree = "<group>"; };
 		63B33DDB2563CAA300FBD478 /* Sensor.pbobjc.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Sensor.pbobjc.h; sourceTree = "<group>"; };
@@ -134,9 +129,6 @@
 				63FF2B58255BD14E008A4FBD /* ViewController.m */,
 				63C21D6425650F0700EC3A93 /* StringProcessFunc.h */,
 				63C21D6525650F0700EC3A93 /* StringProcessFunc.m */,
-				6397873C255E71CE0070C1C9 /* SayBigVoice.swift */,
-				63978735255E619B0070C1C9 /* ProtoBufSwift.swift */,
-				63978734255E619A0070C1C9 /* MQTTTest-Bridging-Header.h */,
 				63FF2B5A255BD14E008A4FBD /* Main.storyboard */,
 				63FF2B5D255BD151008A4FBD /* Assets.xcassets */,
 				63FF2B5F255BD151008A4FBD /* LaunchScreen.storyboard */,
@@ -146,8 +138,8 @@
 				630A2109256603CA001F56DF /* StampTimeProcess.m */,
 				630A21122566064D001F56DF /* PublishDataFor4320.h */,
 				630A21132566064D001F56DF /* PublishDataFor4320.m */,
-				63ACB48125665B960033EC3F /* DeviceInformation.h */,
-				63ACB48225665B960033EC3F /* DeviceInformation.m */,
+				634B87C1256769B7000A01B6 /* TypesCoversion.h */,
+				634B87C2256769B7000A01B6 /* TypesCoversion.m */,
 			);
 			path = MQTTTest;
 			sourceTree = "<group>";
@@ -286,16 +278,14 @@
 			files = (
 				630A21142566064D001F56DF /* PublishDataFor4320.m in Sources */,
 				630B1D5B25626D8400B4F2C6 /* sensor.proto in Sources */,
+				634B87C3256769B7000A01B6 /* TypesCoversion.m in Sources */,
 				63B33DDC2563CAA400FBD478 /* Sensor.pbobjc.m in Sources */,
 				63FF2B59255BD14E008A4FBD /* ViewController.m in Sources */,
-				63ACB48325665B960033EC3F /* DeviceInformation.m in Sources */,
 				63C21D6625650F0700EC3A93 /* StringProcessFunc.m in Sources */,
-				6397873D255E71CE0070C1C9 /* SayBigVoice.swift in Sources */,
 				63FF2B53255BD14E008A4FBD /* AppDelegate.m in Sources */,
 				63C1FFA72564B8BB0061FCEE /* Message.pbobjc.m in Sources */,
 				63C1FFAB2564B8CD0061FCEE /* Device.pbobjc.m in Sources */,
 				63FF2B64255BD151008A4FBD /* main.m in Sources */,
-				63978736255E619B0070C1C9 /* ProtoBufSwift.swift in Sources */,
 				630A210A256603CA001F56DF /* StampTimeProcess.m in Sources */,
 				63C1FF9E2564B6E20061FCEE /* device.proto in Sources */,
 				63C1FFA22564B75A0061FCEE /* message.proto in Sources */,
