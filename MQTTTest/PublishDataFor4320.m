@@ -103,7 +103,8 @@ Motion_Z              : (float)      motion_Z
     [message setPostMeasureRequest:request];
     [message setMessageId:[self getTimeStampAsHexString]];
     // 未來會修正為 32 bit 的 vendor uuid
-    [message setClientId:@"Jack"];
+    // 只能儲存長度 24 以內的 UTF-8 但是 UUID 長度有 32
+    [message setClientId:@"JackAAZAUAÇ÷¨"];
     NSData *publishData = [message data];
     NSLog(@"ddata%@", publishData);
     return publishData;

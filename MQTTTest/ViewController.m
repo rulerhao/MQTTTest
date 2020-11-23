@@ -32,6 +32,14 @@ MQTTSession *Session;
     NSString *VendorIdentifier = [[[UIDevice currentDevice] identifierForVendor] UUIDString];
     NSLog(@"UUID2:%@", [[[UIDevice currentDevice] identifierForVendor] UUIDString]);
     
+    StringProcessFunc *stringProcessFunc = [[StringProcessFunc alloc] init];
+    NSString *Without_Delete_String = [stringProcessFunc deleteSubString:@"ababab"
+                                                               subString:@"ba"];
+    NSString *VendorIdentifier_After_Process = [stringProcessFunc deleteSubString:VendorIdentifier
+                                                                        subString:@"-"];
+    NSLog(@"Without_Delete_String = %@", VendorIdentifier_After_Process);
+    // 25F2A2C1-3E24-48BF-9BC6-E7C592D724E6
+    
     MQTTWebsocketTransport *Transport = [[MQTTWebsocketTransport alloc] init];
     
     Transport.host = @"healthng.oucare.com";
@@ -47,6 +55,7 @@ MQTTSession *Session;
     [MySeccion setUserName:@"kjump"];
     [MySeccion setPassword:@"1234qwer"];
     // 未來會修正為 32 bit 的 vendor uuid
+    // 目前似乎可有可無
     [MySeccion setClientId:@"Jack"];
     NSLog(@"VendorUUID:%@", [[[UIDevice currentDevice] identifierForVendor] UUIDString]);
     
