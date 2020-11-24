@@ -9,7 +9,7 @@
 /* Begin PBXBuildFile section */
 		2A85304A350FBFF39752E2EB /* Pods_MQTTTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ABAE0369C3041ECF222BAFD4 /* Pods_MQTTTest.framework */; };
 		630A210A256603CA001F56DF /* StampTimeProcess.m in Sources */ = {isa = PBXBuildFile; fileRef = 630A2109256603CA001F56DF /* StampTimeProcess.m */; };
-		630A21142566064D001F56DF /* PublishDataFor4320.m in Sources */ = {isa = PBXBuildFile; fileRef = 630A21132566064D001F56DF /* PublishDataFor4320.m */; };
+		630A21142566064D001F56DF /* PublishDataImplement.m in Sources */ = {isa = PBXBuildFile; fileRef = 630A21132566064D001F56DF /* PublishDataImplement.m */; };
 		630B1D5B25626D8400B4F2C6 /* sensor.proto in Sources */ = {isa = PBXBuildFile; fileRef = 630B1D5A25626D8400B4F2C6 /* sensor.proto */; };
 		634B87C3256769B7000A01B6 /* TypesConversion.m in Sources */ = {isa = PBXBuildFile; fileRef = 634B87C2256769B7000A01B6 /* TypesConversion.m */; };
 		63B33DDC2563CAA400FBD478 /* Sensor.pbobjc.m in Sources */ = {isa = PBXBuildFile; fileRef = 63B33DDA2563CAA300FBD478 /* Sensor.pbobjc.m */; };
@@ -21,7 +21,7 @@
 		63C5D2F7256B65740075843D /* IDFVProcess.m in Sources */ = {isa = PBXBuildFile; fileRef = 63C5D2F6256B65740075843D /* IDFVProcess.m */; };
 		63C5D2FC256BA9D30075843D /* MQTTSetting.m in Sources */ = {isa = PBXBuildFile; fileRef = 63C5D2FB256BA9D30075843D /* MQTTSetting.m */; };
 		63EA07C8256CA52500A04C55 /* MQTTConnectImplementation.m in Sources */ = {isa = PBXBuildFile; fileRef = 63EA07C7256CA52500A04C55 /* MQTTConnectImplementation.m */; };
-		63EA07CF256CB7EA00A04C55 /* MQTTWebSocketSetting.m in Sources */ = {isa = PBXBuildFile; fileRef = 63EA07CE256CB7EA00A04C55 /* MQTTWebSocketSetting.m */; };
+		63EA07D4256CD9C900A04C55 /* MQTTMain.m in Sources */ = {isa = PBXBuildFile; fileRef = 63EA07D3256CD9C900A04C55 /* MQTTMain.m */; };
 		63FF2B53255BD14E008A4FBD /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 63FF2B52255BD14E008A4FBD /* AppDelegate.m */; };
 		63FF2B56255BD14E008A4FBD /* SceneDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 63FF2B55255BD14E008A4FBD /* SceneDelegate.m */; };
 		63FF2B59255BD14E008A4FBD /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 63FF2B58255BD14E008A4FBD /* ViewController.m */; };
@@ -35,8 +35,8 @@
 		01AA913E0E8451AFA9AE2330 /* Pods-MQTTTest.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MQTTTest.debug.xcconfig"; path = "Target Support Files/Pods-MQTTTest/Pods-MQTTTest.debug.xcconfig"; sourceTree = "<group>"; };
 		630A2108256603CA001F56DF /* StampTimeProcess.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = StampTimeProcess.h; sourceTree = "<group>"; };
 		630A2109256603CA001F56DF /* StampTimeProcess.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = StampTimeProcess.m; sourceTree = "<group>"; };
-		630A21122566064D001F56DF /* PublishDataFor4320.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PublishDataFor4320.h; sourceTree = "<group>"; };
-		630A21132566064D001F56DF /* PublishDataFor4320.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PublishDataFor4320.m; sourceTree = "<group>"; };
+		630A21122566064D001F56DF /* PublishDataImplement.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PublishDataImplement.h; sourceTree = "<group>"; };
+		630A21132566064D001F56DF /* PublishDataImplement.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PublishDataImplement.m; sourceTree = "<group>"; };
 		630B1D5A25626D8400B4F2C6 /* sensor.proto */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.protobuf; path = sensor.proto; sourceTree = "<group>"; };
 		634B87C1256769B7000A01B6 /* TypesConversion.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TypesConversion.h; sourceTree = "<group>"; };
 		634B87C2256769B7000A01B6 /* TypesConversion.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TypesConversion.m; sourceTree = "<group>"; };
@@ -57,8 +57,8 @@
 		63C5D2FB256BA9D30075843D /* MQTTSetting.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MQTTSetting.m; sourceTree = "<group>"; };
 		63EA07C6256CA52500A04C55 /* MQTTConnectImplementation.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MQTTConnectImplementation.h; sourceTree = "<group>"; };
 		63EA07C7256CA52500A04C55 /* MQTTConnectImplementation.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MQTTConnectImplementation.m; sourceTree = "<group>"; };
-		63EA07CD256CB7EA00A04C55 /* MQTTWebSocketSetting.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MQTTWebSocketSetting.h; sourceTree = "<group>"; };
-		63EA07CE256CB7EA00A04C55 /* MQTTWebSocketSetting.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MQTTWebSocketSetting.m; sourceTree = "<group>"; };
+		63EA07D2256CD9C900A04C55 /* MQTTMain.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MQTTMain.h; sourceTree = "<group>"; };
+		63EA07D3256CD9C900A04C55 /* MQTTMain.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MQTTMain.m; sourceTree = "<group>"; };
 		63FF2B4E255BD14E008A4FBD /* MQTTTest.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MQTTTest.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		63FF2B51255BD14E008A4FBD /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		63FF2B52255BD14E008A4FBD /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -148,8 +148,8 @@
 				63FF2B63255BD151008A4FBD /* main.m */,
 				630A2108256603CA001F56DF /* StampTimeProcess.h */,
 				630A2109256603CA001F56DF /* StampTimeProcess.m */,
-				630A21122566064D001F56DF /* PublishDataFor4320.h */,
-				630A21132566064D001F56DF /* PublishDataFor4320.m */,
+				630A21122566064D001F56DF /* PublishDataImplement.h */,
+				630A21132566064D001F56DF /* PublishDataImplement.m */,
 				634B87C1256769B7000A01B6 /* TypesConversion.h */,
 				634B87C2256769B7000A01B6 /* TypesConversion.m */,
 				63C5D2F5256B65740075843D /* IDFVProcess.h */,
@@ -158,8 +158,8 @@
 				63C5D2FB256BA9D30075843D /* MQTTSetting.m */,
 				63EA07C6256CA52500A04C55 /* MQTTConnectImplementation.h */,
 				63EA07C7256CA52500A04C55 /* MQTTConnectImplementation.m */,
-				63EA07CD256CB7EA00A04C55 /* MQTTWebSocketSetting.h */,
-				63EA07CE256CB7EA00A04C55 /* MQTTWebSocketSetting.m */,
+				63EA07D2256CD9C900A04C55 /* MQTTMain.h */,
+				63EA07D3256CD9C900A04C55 /* MQTTMain.m */,
 			);
 			path = MQTTTest;
 			sourceTree = "<group>";
@@ -296,7 +296,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				630A21142566064D001F56DF /* PublishDataFor4320.m in Sources */,
+				630A21142566064D001F56DF /* PublishDataImplement.m in Sources */,
 				630B1D5B25626D8400B4F2C6 /* sensor.proto in Sources */,
 				634B87C3256769B7000A01B6 /* TypesConversion.m in Sources */,
 				63B33DDC2563CAA400FBD478 /* Sensor.pbobjc.m in Sources */,
@@ -306,13 +306,13 @@
 				63C1FFA72564B8BB0061FCEE /* Message.pbobjc.m in Sources */,
 				63C1FFAB2564B8CD0061FCEE /* Device.pbobjc.m in Sources */,
 				63FF2B64255BD151008A4FBD /* main.m in Sources */,
+				63EA07D4256CD9C900A04C55 /* MQTTMain.m in Sources */,
 				63EA07C8256CA52500A04C55 /* MQTTConnectImplementation.m in Sources */,
 				630A210A256603CA001F56DF /* StampTimeProcess.m in Sources */,
 				63C1FF9E2564B6E20061FCEE /* device.proto in Sources */,
 				63C5D2FC256BA9D30075843D /* MQTTSetting.m in Sources */,
 				63C5D2F7256B65740075843D /* IDFVProcess.m in Sources */,
 				63C1FFA22564B75A0061FCEE /* message.proto in Sources */,
-				63EA07CF256CB7EA00A04C55 /* MQTTWebSocketSetting.m in Sources */,
 				63FF2B56255BD14E008A4FBD /* SceneDelegate.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

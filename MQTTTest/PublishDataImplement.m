@@ -5,17 +5,16 @@
 //  Created by louie on 2020/11/19.
 //
 
-#import "PublishDataFor4320.h"
+#import "PublishDataImplement.h"
 
-@interface PublishDataFor4320 ()
+@interface PublishDataImplement ()
 
 @end
 
-@implementation PublishDataFor4320
+@implementation PublishDataImplement
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    NSLog(@"ViewDidLoadTest");
 }
 
 - (NSData *)
@@ -101,12 +100,15 @@ Motion_Z              : (float)      motion_Z
     [message setPostMeasureRequest:request];
     [message setMessageId:[self getTimeStampAsHexString]];
     
-    
+    // Client ID
     // 未來會修正為 32 bit 的 vendor uuid
     // 只能儲存長度 23 以內的 UTF-8 但是 UUID 長度有 32
-    [message setClientId:@"JackAAZAUAÇ÷¨"];
+    MQTTSetting *MqttSetting = [[MQTTSetting alloc] init];
+    [message setClientId:MqttSetting.ClientID];
+    
     NSData *publishData = [message data];
     NSLog(@"ddata%@", publishData);
+    
     return publishData;
 }
 

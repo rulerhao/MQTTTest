@@ -26,11 +26,15 @@ MQTTSession *Session;
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    MQTTMain *MqttMain = [[MQTTMain alloc] init];
+    [MqttMain MQTTStart];
+    
     MQTTSetting *MqttSetting = [[MQTTSetting alloc] init];
     [MqttSetting InitMQTTSetting];
     
     [MqttSetting.Session setDelegate:self];
     
+    NSLog(@"Selfefleefef = %@", self);
     [MqttSetting.Session setKeepAliveInterval:5];
     
     [MqttSetting.Session connectAndWaitTimeout:15];
@@ -43,7 +47,7 @@ MQTTSession *Session;
 NSUInteger count = 0;
 - (IBAction)TouchDownPublishButton:(id)sender
 {
-    PublishDataFor4320 *publishDataFor4320 = [[PublishDataFor4320 alloc] init];
+    PublishDataImplement *publishDataFor4320 = [[PublishDataImplement alloc] init];
     NSData *PublishData = [publishDataFor4320 getPublishData:@"KS-4310"
                                                Device_Serial:@"S15"
                                                  Device_UUID:@"92ee96a6-ff9a-11ea-8fd3-0242ac160004"
@@ -55,7 +59,7 @@ NSUInteger count = 0;
                                                     Motion_X:123.1
                                                     Motion_Y:252.6
                                                     Motion_Z:929.1];
-    NSLog(@"TestForIn");
+    
     [publishDataFor4320 publishData:PublishData
                             session:Session];
 }
@@ -119,6 +123,9 @@ handleEvent:(MQTTSession *)session
     }
 }
 
+/**
+ * 當 Subscribe 方被 Publish 時觸發
+ */
 - (void)newMessage:(MQTTSession *)session
               data:(NSData *)data
            onTopic:(NSString *)topic

@@ -20,18 +20,22 @@
 
 - (void) InitMQTTSetting
 {
+    NSLog(@"Selfefleefef = %@", ViewController.self);
+    // User Information Setting
     User_Name = @"kjump";
     Password = @"1234qwer";
     
+    // Clien ID Setting
     IDFVProcess *idfvProcess = [[IDFVProcess alloc] init];
     ClientID = [idfvProcess getClientIDFromIDFV];
     
-    // Transport setting
+    // Transport Setting
     Transport = [[MQTTWebsocketTransport alloc] init];
     Transport.host = @"healthng.oucare.com";
     Transport.port = 1885;
     Transport.tls = YES;
     
+    // Session Setting
     Session = [[MQTTSession alloc] init];
     [Session setUserName:User_Name];
     [Session setPassword:Password];

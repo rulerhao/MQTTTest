@@ -13,10 +13,11 @@
 #import "Device.pbobjc.h"
 #import "StringProcessFunc.h"
 #import "StampTimeProcess.h"
-#import "PublishDataFor4320.h"
+#import "PublishDataImplement.h"
 #import "TypesConversion.h"
 #import "IDFVProcess.h"
 #import "MQTTSetting.h"
+#import "MQTTMain.h"
 
 @interface ViewController : UIViewController <MQTTSessionDelegate>
 

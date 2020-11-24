@@ -28,8 +28,8 @@ NS_ASSUME_NONNULL_BEGIN
 @property (retain, nonatomic) MQTTSession *Session;
 @property (retain, nonatomic) MQTTWebsocketTransport *Transport;
 
-
 - (void) InitMQTTSetting;
+
 @end
 
 NS_ASSUME_NONNULL_END

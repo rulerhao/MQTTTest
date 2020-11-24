@@ -9,7 +9,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface PublishDataFor4320 : UIViewController
+@interface PublishDataImplement : UIViewController
 - (NSData *)
 getPublishData        : (NSString *) Model
 Device_Serial         : (NSString *) Serial

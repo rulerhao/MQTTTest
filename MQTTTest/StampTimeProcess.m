@@ -15,7 +15,6 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
 }
 
 
@@ -44,6 +43,7 @@
     
     NSLog(@"timeStampString:%@", timeStampString);
     
+    // 小數點後的字串
     NSString *StringAfterPoint = [stringProcessFunctioc getSubString:timeStampString
                                                               length:[timeStampString length] - Length_Before_And_Contain_Point
                                                             location:Length_Before_And_Contain_Point];

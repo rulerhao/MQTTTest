@@ -23,6 +23,8 @@ getClientIDFromIDFV
 {
     /**
      * 取得 Vendor Identifier
+     * 長度為 32 的 十六進位 String
+     * AAAAAAAA-BBBB-CCCC-DDDD-EEEEEEEEEEEE
      * 此 identifier 會依據app 的發行商而變更
      * 也因此單一對於想取得手機的身份卻又不希望他變更時可以選用這個
     */

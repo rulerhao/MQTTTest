@@ -10,6 +10,7 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @interface StampTimeProcess : UIViewController
+
 - (UInt32) getTimeStampSecond;
 - (UInt32) getTimeStampNanosecond;
 
