@@ -14,60 +14,33 @@ MQTTSession* MySeccion;
 
 @interface ViewController ()
 
+
 @end
 
 @implementation ViewController
+
+NSString *Client_ID;
 
 MQTTSession *Session;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    /**
-     * 取得 Vendor Identifier
-     * 此 identifier 會依據app 的發行商而變更
-     * 也因此單一對於想取得手機的身份卻又不希望他變更時可以選用這個
-    */
+    MQTTSetting *MqttSetting = [[MQTTSetting alloc] init];
+    [MqttSetting InitMQTTSetting];
     
-    NSString *VendorIdentifier = [[[UIDevice currentDevice] identifierForVendor] UUIDString];
-    NSLog(@"UUID2:%@", [[[UIDevice currentDevice] identifierForVendor] UUIDString]);
+    [MqttSetting.Session setDelegate:self];
     
-    StringProcessFunc *stringProcessFunc = [[StringProcessFunc alloc] init];
-    NSString *Without_Delete_String = [stringProcessFunc deleteSubString:@"ababab"
-                                                               subString:@"ba"];
-    NSString *VendorIdentifier_After_Process = [stringProcessFunc deleteSubString:VendorIdentifier
-                                                                        subString:@"-"];
-    NSLog(@"Without_Delete_String = %@", VendorIdentifier_After_Process);
-    // 25F2A2C1-3E24-48BF-9BC6-E7C592D724E6
+    [MqttSetting.Session setKeepAliveInterval:5];
     
-    MQTTWebsocketTransport *Transport = [[MQTTWebsocketTransport alloc] init];
-    
-    Transport.host = @"healthng.oucare.com";
-    Transport.port = 1885;
-    Transport.tls = YES;
-    
-    MySeccion = [[MQTTSession alloc] init];
-    
-    [MySeccion setTransport:Transport];
-    [MySeccion setDelegate:self];
-    
-    // UserName 和 Password 似乎非必要
-    [MySeccion setUserName:@"kjump"];
-    [MySeccion setPassword:@"1234qwer"];
-    // 未來會修正為 32 bit 的 vendor uuid
-    // 目前似乎可有可無
-    [MySeccion setClientId:@"Jack"];
-    NSLog(@"VendorUUID:%@", [[[UIDevice currentDevice] identifierForVendor] UUIDString]);
-    
-    [MySeccion setKeepAliveInterval:5];
-    
-    [MySeccion connectAndWaitTimeout:15];
+    [MqttSetting.Session connectAndWaitTimeout:15];
     
     
 }
 /**
  * 按下 Publish button 的觸發事件
  */
+NSUInteger count = 0;
 - (IBAction)TouchDownPublishButton:(id)sender
 {
     PublishDataFor4320 *publishDataFor4320 = [[PublishDataFor4320 alloc] init];
@@ -82,25 +55,9 @@ MQTTSession *Session;
                                                     Motion_X:123.1
                                                     Motion_Y:252.6
                                                     Motion_Z:929.1];
-    
-    TypesConversion *typesConversion = [[TypesConversion alloc] init];
-    NSLog(@"ADADAADD:%@", [typesConversion getHEX:PublishData]);
-    [Session publishData:PublishData
-                 onTopic:@"/ouhub/requests"
-                  retain:NO
-                     qos:MQTTQosLevelAtMostOnce
-          publishHandler:^(NSError *error)
-    {
-        if (error)
-        {
-            NSLog(@"PulbishForSameTimeerror - %@",error);
-        }
-        
-        else
-        {
-            NSLog(@"send ok");
-        }
-    }];
+    NSLog(@"TestForIn");
+    [publishDataFor4320 publishData:PublishData
+                            session:Session];
 }
 
 /**

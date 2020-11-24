@@ -15,6 +15,8 @@
 #import "StampTimeProcess.h"
 #import "PublishDataFor4320.h"
 #import "TypesConversion.h"
+#import "IDFVProcess.h"
+#import "MQTTSetting.h"
 
 @interface ViewController : UIViewController <MQTTSessionDelegate>
 

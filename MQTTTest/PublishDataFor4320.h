@@ -22,6 +22,10 @@ Breath                : (BOOL)       bre
 Motion_X              : (float)      motion_X
 Motion_Y              : (float)      motion_Y
 Motion_Z              : (float)      motion_Z;
+
+- (void) publishData : (NSData *) Publish_Data
+             session : (MQTTSession *) Session;
+
 @end
 
 NS_ASSUME_NONNULL_END

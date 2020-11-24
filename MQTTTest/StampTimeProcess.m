@@ -31,12 +31,22 @@
 {
     StringProcessFunc *stringProcessFunctioc = [[StringProcessFunc alloc] init];
     NSTimeInterval timeStamp = [[NSDate date] timeIntervalSince1970];
+    
     NSNumber *timeStampObj = [NSNumber numberWithDouble: timeStamp];
+    
     NSString *timeStampString = [timeStampObj stringValue];
+    
+    // 取包含小數點的字串長度
+    NSUInteger timeStampInt = [timeStampObj integerValue];
+    NSString* timeStampIntString = [[NSString alloc] initWithFormat:@"%lu", (unsigned long)timeStampInt];
+    NSUInteger Length_Before_Point = [timeStampIntString length];
+    NSUInteger Length_Before_And_Contain_Point = Length_Before_Point + 1;
+    
     NSLog(@"timeStampString:%@", timeStampString);
+    
     NSString *StringAfterPoint = [stringProcessFunctioc getSubString:timeStampString
-                                                              length:[timeStampString length] - 11
-                                                            location:11];
+                                                              length:[timeStampString length] - Length_Before_And_Contain_Point
+                                                            location:Length_Before_And_Contain_Point];
     UInt32 NanoSecond = [StringAfterPoint intValue] * 1000;
     NSLog(@"timeStampLong:%lu", (unsigned long)NanoSecond);
     return NanoSecond;

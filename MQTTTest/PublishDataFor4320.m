@@ -15,6 +15,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    NSLog(@"ViewDidLoadTest");
 }
 
 - (NSData *)
@@ -36,8 +37,6 @@ Motion_Z              : (float)      motion_Z
     
     NSMutableArray *recordList = [[NSMutableArray alloc] init];
     
-    for(NSInteger i = 0; i < 1; i++)
-    {
         MeasureRecord *record = [[MeasureRecord alloc] init];
         DeviceProperty *deviceProperty = [[DeviceProperty alloc] init];
         GPBTimestamp *measuredAt = [[GPBTimestamp alloc] init];
@@ -96,20 +95,43 @@ Motion_Z              : (float)      motion_Z
         [sensorBre setBreathProperty:breProperty];
         
         [recordList addObject:record];
-    }
     
     [request setRecordArray:recordList];
     
     [message setPostMeasureRequest:request];
     [message setMessageId:[self getTimeStampAsHexString]];
+    
+    
     // 未來會修正為 32 bit 的 vendor uuid
-    // 只能儲存長度 24 以內的 UTF-8 但是 UUID 長度有 32
+    // 只能儲存長度 23 以內的 UTF-8 但是 UUID 長度有 32
     [message setClientId:@"JackAAZAUAÇ÷¨"];
     NSData *publishData = [message data];
     NSLog(@"ddata%@", publishData);
     return publishData;
 }
 
+- (void) publishData : (NSData *) Publish_Data
+             session : (MQTTSession *) Session
+{
+    TypesConversion *typesConversion = [[TypesConversion alloc] init];
+    NSLog(@"ADADAADD:%@", [typesConversion getHEX:Publish_Data]);
+    [Session publishData:Publish_Data
+                 onTopic:@"/ouhub/requests"
+                  retain:NO
+                     qos:MQTTQosLevelAtMostOnce
+          publishHandler:^(NSError *error)
+    {
+        if (error)
+        {
+            NSLog(@"PulbishForSameTimeerror - %@",error);
+        }
+        
+        else
+        {
+            NSLog(@"send ok");
+        }
+    }];
+}
 /**
  * [[ 訊息代碼 ]]
  *
