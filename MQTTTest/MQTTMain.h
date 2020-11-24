@@ -6,12 +6,17 @@
 //
 
 #import "ViewController.h"
+#import <MQTTClient.h>
+#import <MQTTWebsocketTransport.h>
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface MQTTMain : UIViewController
+@interface MQTTMain : UIViewController <MQTTSessionDelegate>
 
 - (void) MQTTStart;
+
+- (void) MQTTPublishImplement;
+
 @end
 
 NS_ASSUME_NONNULL_END
