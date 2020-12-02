@@ -12,5 +12,6 @@ target 'MQTTTest' do
 	pod 'MQTTClient/ManagerL'
 	pod 'MQTTClient/WebsocketL'
 	pod 'Protobuf', '~> 4.0.0-rc1'
+	pod 'AppAuth'
 
 end

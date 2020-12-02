@@ -24,8 +24,24 @@ MQTTSession* MySeccion;
 {
     [super viewDidLoad];
     
-    MQTTMain *MqttMain = [[MQTTMain alloc] init];
-    [MqttMain MQTTStart];
+    
+    
+//    MQTTMain *MqttMain = [[MQTTMain alloc] init];
+//    [MqttMain MQTTStart];
+}
+
+- (void) viewDidAppear:(BOOL)animated
+{
+    // set storyboard
+    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+    // set web viewcontroller
+    WebViewController *webViewController = [storyboard instantiateViewControllerWithIdentifier:@"WebViewController"];
+    // set viewcontroller style
+    // full screen
+    webViewController.modalPresentationStyle = UIModalPresentationOverFullScreen;
+    // start to change
+    [self presentViewController:webViewController animated:YES completion:nil];
+
 }
 /**
  * 按下 Publish button 的觸發事件
@@ -33,7 +49,7 @@ MQTTSession* MySeccion;
 - (IBAction)TouchDownPublishButton:(id)sender
 {
     MQTTMain *MqttMain = [[MQTTMain alloc] init];
-    // Defalault Publish
+    // Default Publish
     //[MqttMain MQTTPublishImplementDefalut];
     
     [MqttMain MQTTPublishImplement:@"KS-4310"
