@@ -11,6 +11,7 @@
 #import <OIDAuthState.h>
 #import <OIDAuthorizationService.h>
 #import "Parameter_Detail.h"
+#import "OAuthParameters.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
