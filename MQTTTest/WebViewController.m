@@ -22,21 +22,8 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // UIView *baseView = [[UIView alloc] initWithFrame:CGRectZero];
     
     NSLog(@"GetInto = %@", self);
-//    WKWebView *webView = [[WKWebView alloc] init];
-//
-//    webView.UIDelegate = self;
-//    webView.navigationDelegate = self;
-//    webView.frame = CGRectMake(0, 0, 400, 270);
-//    self.view = webView;
-//    NSURL *url = [NSURL URLWithString:@"https://www.google.com"];
-//    NSURLRequest *request = [NSURLRequest requestWithURL:url];
-//
-//    [webView loadRequest:request];
-
-
 }
 - (void)viewDidAppear:(BOOL)animated
 {
@@ -45,12 +32,10 @@
     NSString *RequestURL = [oAuthParameters logInURLWithParameters];
     [self logIn: RequestURL];
     // 當登錄完成後做 get code 動作
-    //[self.view setBackgroundColor:DDMakeColor(50, 50, 50)];
 }
 
 - (void)setupWebView
 {
-    //UIView *baseWebView = [[UIView alloc] initWithFrame:CGRectZero];
     self.webView = [[WKWebView alloc] initWithFrame: CGRectZero];
     self.webView.UIDelegate = self;
     self.webView.navigationDelegate = self;
@@ -80,8 +65,7 @@
     [self.webView loadRequest: request];
 }
 
-- (void)takeCode
-{
+- (void)takeCode {
     // cookies
     WKHTTPCookieStore *cookieStore = self.webView.configuration.websiteDataStore.httpCookieStore;
     NSMutableArray *cookieArray = [[NSMutableArray alloc] init];
@@ -93,7 +77,7 @@
                 [[NSHTTPCookieStorage sharedHTTPCookieStorage] setCookie:cookie];
                 [cookieArray addObject:cookie];
 
-                NSLog(@"cookie = %@", cookie);
+                //NSLog(@"cookie = %@", cookie);
             }
         }
     }];
@@ -111,30 +95,31 @@
     [request setHTTPShouldHandleCookies:true];
     [self.webView loadRequest: request];
 }
-- (void) setGetCodeURL
-{
+- (void) setGetCodeURL {
     
 }
-// 完整讀取完頁面
+// 在收到 response 後，决定是否跳轉
 -(void)webView:(WKWebView *)webView
 decidePolicyForNavigationResponse:(WKNavigationResponse *)navigationResponse
-decisionHandler:(void (^)(WKNavigationResponsePolicy))decisionHandler
-{
+decisionHandler:(void (^)(WKNavigationResponsePolicy))decisionHandler {
     NSURL *URL = navigationResponse.response.URL;
     NSURLComponents *URL_Components = [NSURLComponents componentsWithString:URL.absoluteString];
-//    if([[URL_Components path]  isEqual: @"/oauth/login"]) {
-//        [self takeCode];
-//    }
-//    else if([[URL_Components path]  isEqual: @"/oauth/authorize"]) {
-//    }                
-    [self takeCode];
+    if([[URL_Components path]  isEqual: @"/oauth/login"]) {
+        [self takeCode];
+
+    }
     decisionHandler(WKNavigationResponsePolicyAllow);
+//    else if([[URL_Components path]  isEqual: @"/oauth/authorize"]) {
+//        NSLog(@"Do Once");
+//        decisionHandler(WKNavigationResponsePolicyAllow);
+//
+//
+//    }
 }
 // 読み込み開始
 - (void)
 webView:(WKWebView *)webView
-didStartProvisionalNavigation:(WKNavigation *)navigation
-{
+didStartProvisionalNavigation:(WKNavigation *)navigation {
     NSLog(@"didStartProvisionalNavigation");
     NSLog(@"webView = %@", webView.URL);
     NSLog(@"           ");
@@ -142,8 +127,7 @@ didStartProvisionalNavigation:(WKNavigation *)navigation
 
 - (void)webView:(WKWebView *)webView
 decidePolicyForNavigationAction:(WKNavigationAction *)navigationAction
-decisionHandler:(void (^)(WKNavigationActionPolicy))decisionHandler
-{
+decisionHandler:(void (^)(WKNavigationActionPolicy))decisionHandler {
     if (navigationAction.navigationType == WKNavigationTypeLinkActivated) {
         decisionHandler(WKNavigationActionPolicyCancel);
         NSLog(@"WKNavigationActionPolicyCancel");
@@ -153,11 +137,12 @@ decisionHandler:(void (^)(WKNavigationActionPolicy))decisionHandler
         NSLog(@"WKNavigationActionPolicyAllow");
     }
 }
-/// autoLayoutをセット
+
+/// autoLayout 設定
 - (void)setupWKWebViewConstain: (WKWebView *)webView {
     webView.translatesAutoresizingMaskIntoConstraints = NO;
     
-    // ４辺のマージンを0にする
+    // 四個邊的距離設定為零
     NSLayoutConstraint *topConstraint =
     [NSLayoutConstraint constraintWithItem: webView
                                  attribute: NSLayoutAttributeTop
