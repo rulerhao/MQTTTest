@@ -22,7 +22,7 @@
     NSMutableArray *Parameters = [[NSMutableArray alloc] init];
     
     NSString *Client_ID_Title = @"client_id";
-    NSString *Client_ID_Value = @"c90ccc19-2fab-11eb-a13f-02420a00080e";
+    NSString *Client_ID_Value = @"c90ccc18-2fab-11eb-a13f-02420a00080e";
     NSMutableArray *Parameters_For_Client_ID =[[NSMutableArray alloc] init];
     [Parameters_For_Client_ID addObject:Client_ID_Title];
     [Parameters_For_Client_ID addObject:Client_ID_Value];
@@ -102,7 +102,7 @@
     NSMutableArray *Parameters = [[NSMutableArray alloc] init];
     
     NSString *Client_ID_Title = @"client_id";
-    NSString *Client_ID_Value = @"c90ccc19-2fab-11eb-a13f-02420a00080e";
+    NSString *Client_ID_Value = @"c90ccc18-2fab-11eb-a13f-02420a00080e";
     NSMutableArray *Parameters_For_Client_ID =[[NSMutableArray alloc] init];
     [Parameters_For_Client_ID addObject:Client_ID_Title];
     [Parameters_For_Client_ID addObject:Client_ID_Value];
@@ -116,7 +116,7 @@
     [Parameters addObject:Parameters_For_Response_Type];
     
     NSString *Redirect_URI_Title = @"redirect_uri";
-    NSString *Redirect_URI_Value = @"https://headthng.oucare.com";
+    NSString *Redirect_URI_Value = @"https://healthng.oucare.com";
     NSMutableArray *Parameters_For_Redirect_URI =[[NSMutableArray alloc] init];
     [Parameters_For_Redirect_URI addObject:Redirect_URI_Title];
     [Parameters_For_Redirect_URI addObject:Redirect_URI_Value];
@@ -136,7 +136,8 @@
     [Parameters_For_Code_Challenge_Method addObject:Code_Challenge_Method_Value];
     [Parameters addObject:Parameters_For_Code_Challenge_Method];
     
-    NSLog(@"Test = %@", [[Parameters objectAtIndex:0] objectAtIndex:0]);
+    NSLog(@"parametersForCode = %@", Parameters);
+    NSLog(@"TestParameters = %@", [[Parameters objectAtIndex:0] objectAtIndex:0]);
     return Parameters;
 }
 
@@ -147,7 +148,7 @@
     
     NSMutableArray *Parameters = [[NSMutableArray alloc] init];
     
-    Parameters = [self logInParameters];
+    Parameters = [self takeCodeParameter];
     
     NSString *Parameters_String;
     // get string contains all parameters
@@ -158,6 +159,87 @@
     NSLog(@"URL_With_Parameters = %@", URL_With_Parameters);
     
     return URL_With_Parameters;
+}
+
+- (NSMutableArray *) takeAccessTokenBodyParameters : (NSString *) Code_Value {
+    NSMutableArray *Parameters = [[NSMutableArray alloc] init];
+    
+    NSString *Client_ID_Title = @"client_id";
+    NSString *Client_ID_Value = @"c90ccc18-2fab-11eb-a13f-02420a00080e";
+    NSMutableArray *Parameters_For_Client_ID =[[NSMutableArray alloc] init];
+    [Parameters_For_Client_ID addObject:Client_ID_Title];
+    [Parameters_For_Client_ID addObject:Client_ID_Value];
+    [Parameters addObject:Parameters_For_Client_ID];
+    
+    NSString *Grant_Type_Title = @"grant_type";
+    NSString *Grant_Type_Value = @"authorization_code";
+    NSMutableArray *Parameters_For_Grant_Type =[[NSMutableArray alloc] init];
+    [Parameters_For_Grant_Type addObject:Grant_Type_Title];
+    [Parameters_For_Grant_Type addObject:Grant_Type_Value];
+    [Parameters addObject:Parameters_For_Grant_Type];
+    
+    NSString *Parameter_Code_Title = @"code";
+    NSString *Parameter_Code_Value = Code_Value;
+    NSMutableArray *Parameters_For_Parameter_Code =[[NSMutableArray alloc] init];
+    [Parameters_For_Parameter_Code addObject:Parameter_Code_Title];
+    [Parameters_For_Parameter_Code addObject:Parameter_Code_Value];
+    [Parameters addObject:Parameters_For_Parameter_Code];
+    
+    NSString *Redirect_URI_Title = @"redirect_uri";
+    NSString *Redirect_URI_Value = @"https://healthng.oucare.com";
+    NSMutableArray *Parameters_For_Redirect_URI =[[NSMutableArray alloc] init];
+    [Parameters_For_Redirect_URI addObject:Redirect_URI_Title];
+    [Parameters_For_Redirect_URI addObject:Redirect_URI_Value];
+    [Parameters addObject:Parameters_For_Redirect_URI];
+    
+    NSString *Code_Verifier_Method_Title = @"code_verifier";
+    NSString *Code_Verifier_Method_Value = @"ThisIsntRandomButItNeedsToBe43CharactersLong";
+    NSMutableArray *Parameters_For_Code_Verifier_Method =[[NSMutableArray alloc] init];
+    [Parameters_For_Code_Verifier_Method addObject:Code_Verifier_Method_Title];
+    [Parameters_For_Code_Verifier_Method addObject:Code_Verifier_Method_Value];
+    [Parameters addObject:Parameters_For_Code_Verifier_Method];
+    
+    NSLog(@"parametersForCode = %@", Parameters);
+    NSLog(@"TestParameters = %@", [[Parameters objectAtIndex:0] objectAtIndex:0]);
+    return Parameters;
+}
+- (NSString *) takeAccessTokenURLWithCodeParameters {
+    NSString *Origin_URL = @"https://healthng.oucare.com/oauth/token";
+    return Origin_URL;
+}
+// 第四步驟 用RefreshToken取得AccessToken時所需要的參數
+- (NSMutableArray *) takeRefreshTokenBodyParameters : (NSString *) Refresh_Token {
+    NSMutableArray *Parameters = [[NSMutableArray alloc] init];
+    
+    NSString *Client_ID_Title = @"client_id";
+    NSString *Client_ID_Value = @"c90ccc18-2fab-11eb-a13f-02420a00080e";
+    NSMutableArray *Parameters_For_Client_ID =[[NSMutableArray alloc] init];
+    [Parameters_For_Client_ID addObject:Client_ID_Title];
+    [Parameters_For_Client_ID addObject:Client_ID_Value];
+    [Parameters addObject:Parameters_For_Client_ID];
+    
+    NSString *Grant_Type_Title = @"grant_type";
+    NSString *Grant_Type_Value = @"refresh_code";
+    NSMutableArray *Parameters_For_Grant_Type =[[NSMutableArray alloc] init];
+    [Parameters_For_Grant_Type addObject:Grant_Type_Title];
+    [Parameters_For_Grant_Type addObject:Grant_Type_Value];
+    [Parameters addObject:Parameters_For_Grant_Type];
+    
+    NSString *Refresh_Token_Title = @"refresh_token";
+    NSString *Refresh_Token_Value = Refresh_Token;
+    NSMutableArray *Parameters_For_Refresh_Token =[[NSMutableArray alloc] init];
+    [Parameters_For_Refresh_Token addObject:Refresh_Token_Title];
+    [Parameters_For_Refresh_Token addObject:Refresh_Token_Value];
+    [Parameters addObject:Parameters_For_Refresh_Token];
+    
+    NSLog(@"parametersForCode = %@", Parameters);
+    NSLog(@"TestParameters = %@", [[Parameters objectAtIndex:0] objectAtIndex:0]);
+    return Parameters;
+}
+
+- (NSString *) takeRefreshTokenURLWithCodeParameters {
+    NSString *Origin_URL = @"https://healthng.oucare.com/oauth/token";
+    return Origin_URL;
 }
 
 - (NSString *) Parameters_Merge : (NSMutableArray *) Parameters {
@@ -171,6 +253,7 @@
         if (i == 0) Parameters_String = [NSString stringWithFormat:@"%@%@%@%@", Parameters_String, Title, Parameters_Is, Value];
         else Parameters_String = [NSString stringWithFormat:@"%@%@%@%@%@", Parameters_String, Parameters_And, Title, Parameters_Is, Value];
     }
+    NSLog(@"Parameters_String = %@", Parameters_String);
     return Parameters_String;
 }
 @end

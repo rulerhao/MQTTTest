@@ -12,6 +12,9 @@
 #import <OIDAuthorizationService.h>
 #import "Parameter_Detail.h"
 #import "OAuthParameters.h"
+#import "URLProcess.h"
+#import "HTMLProcess.h"
+#import "OAuth2ForOuhealth.h"
 
 NS_ASSUME_NONNULL_BEGIN
 

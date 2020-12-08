@@ -17,6 +17,12 @@ NS_ASSUME_NONNULL_BEGIN
 - (NSMutableArray *) takeCodeParameter;
 - (NSString *) takeCodeURLWithParameters;
 
+- (NSMutableArray *) takeAccessTokenBodyParameters : (NSString *) Code_Value;
+- (NSString *) takeAccessTokenURLWithCodeParameters;
+
+- (NSMutableArray *) takeRefreshTokenBodyParameters : (NSString *) Refresh_Token;
+- (NSString *) takeRefreshTokenURLWithCodeParameters;
+
 - (NSString *) Parameters_Merge : (NSMutableArray *) Parameters;
 @end
 
