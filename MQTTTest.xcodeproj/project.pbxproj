@@ -12,7 +12,7 @@
 		630A21142566064D001F56DF /* PublishDataImplement.m in Sources */ = {isa = PBXBuildFile; fileRef = 630A21132566064D001F56DF /* PublishDataImplement.m */; };
 		630B1D5B25626D8400B4F2C6 /* sensor.proto in Sources */ = {isa = PBXBuildFile; fileRef = 630B1D5A25626D8400B4F2C6 /* sensor.proto */; };
 		631AD146257F5D2A00328730 /* HTMLProcess.m in Sources */ = {isa = PBXBuildFile; fileRef = 631AD145257F5D2A00328730 /* HTMLProcess.m */; };
-		631AD14B257F5E4C00328730 /* OAuth2ForOuhealth.m in Sources */ = {isa = PBXBuildFile; fileRef = 631AD14A257F5E4C00328730 /* OAuth2ForOuhealth.m */; };
+		631AD14B257F5E4C00328730 /* JSONProcess.m in Sources */ = {isa = PBXBuildFile; fileRef = 631AD14A257F5E4C00328730 /* JSONProcess.m */; };
 		633E6CCF257DC14200FC6A36 /* URLProcess.m in Sources */ = {isa = PBXBuildFile; fileRef = 633E6CCE257DC14200FC6A36 /* URLProcess.m */; };
 		634B87C3256769B7000A01B6 /* TypesConversion.m in Sources */ = {isa = PBXBuildFile; fileRef = 634B87C2256769B7000A01B6 /* TypesConversion.m */; };
 		6393E7F92570A74700D4E963 /* WebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6393E7F82570A74700D4E963 /* WebViewController.m */; };
@@ -45,8 +45,8 @@
 		630B1D5A25626D8400B4F2C6 /* sensor.proto */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.protobuf; path = sensor.proto; sourceTree = "<group>"; };
 		631AD144257F5D2A00328730 /* HTMLProcess.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HTMLProcess.h; sourceTree = "<group>"; };
 		631AD145257F5D2A00328730 /* HTMLProcess.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HTMLProcess.m; sourceTree = "<group>"; };
-		631AD149257F5E4C00328730 /* OAuth2ForOuhealth.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OAuth2ForOuhealth.h; sourceTree = "<group>"; };
-		631AD14A257F5E4C00328730 /* OAuth2ForOuhealth.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = OAuth2ForOuhealth.m; sourceTree = "<group>"; };
+		631AD149257F5E4C00328730 /* JSONProcess.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = JSONProcess.h; sourceTree = "<group>"; };
+		631AD14A257F5E4C00328730 /* JSONProcess.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = JSONProcess.m; sourceTree = "<group>"; };
 		633E6CCD257DC14200FC6A36 /* URLProcess.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = URLProcess.h; sourceTree = "<group>"; };
 		633E6CCE257DC14200FC6A36 /* URLProcess.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = URLProcess.m; sourceTree = "<group>"; };
 		634B87C1256769B7000A01B6 /* TypesConversion.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TypesConversion.h; sourceTree = "<group>"; };
@@ -152,8 +152,6 @@
 				6393E7FB2570A87300D4E963 /* MQTTTest.entitlements */,
 				630A21012565FF8D001F56DF /* main groups */,
 				630A20FE2565FF79001F56DF /* proto files */,
-				631AD144257F5D2A00328730 /* HTMLProcess.h */,
-				631AD145257F5D2A00328730 /* HTMLProcess.m */,
 				63FF2B51255BD14E008A4FBD /* AppDelegate.h */,
 				63FF2B52255BD14E008A4FBD /* AppDelegate.m */,
 				63FF2B54255BD14E008A4FBD /* SceneDelegate.h */,
@@ -179,6 +177,8 @@
 				63C5D2FB256BA9D30075843D /* MQTTSetting.m */,
 				63EA07C6256CA52500A04C55 /* MQTTConnectImplementation.h */,
 				63EA07C7256CA52500A04C55 /* MQTTConnectImplementation.m */,
+				631AD144257F5D2A00328730 /* HTMLProcess.h */,
+				631AD145257F5D2A00328730 /* HTMLProcess.m */,
 				63EA07D2256CD9C900A04C55 /* MQTTMain.h */,
 				63EA07D3256CD9C900A04C55 /* MQTTMain.m */,
 				6393E7F72570A74700D4E963 /* WebViewController.h */,
@@ -187,8 +187,8 @@
 				63BBE58F257786C200F172A8 /* OAuthParameters.m */,
 				633E6CCD257DC14200FC6A36 /* URLProcess.h */,
 				633E6CCE257DC14200FC6A36 /* URLProcess.m */,
-				631AD149257F5E4C00328730 /* OAuth2ForOuhealth.h */,
-				631AD14A257F5E4C00328730 /* OAuth2ForOuhealth.m */,
+				631AD149257F5E4C00328730 /* JSONProcess.h */,
+				631AD14A257F5E4C00328730 /* JSONProcess.m */,
 			);
 			path = MQTTTest;
 			sourceTree = "<group>";
@@ -336,7 +336,7 @@
 				63C1FFA72564B8BB0061FCEE /* Message.pbobjc.m in Sources */,
 				63C1FFAB2564B8CD0061FCEE /* Device.pbobjc.m in Sources */,
 				63FF2B64255BD151008A4FBD /* main.m in Sources */,
-				631AD14B257F5E4C00328730 /* OAuth2ForOuhealth.m in Sources */,
+				631AD14B257F5E4C00328730 /* JSONProcess.m in Sources */,
 				63EA07D4256CD9C900A04C55 /* MQTTMain.m in Sources */,
 				631AD146257F5D2A00328730 /* HTMLProcess.m in Sources */,
 				63EA07C8256CA52500A04C55 /* MQTTConnectImplementation.m in Sources */,

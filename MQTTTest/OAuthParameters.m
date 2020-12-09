@@ -219,7 +219,7 @@
     [Parameters addObject:Parameters_For_Client_ID];
     
     NSString *Grant_Type_Title = @"grant_type";
-    NSString *Grant_Type_Value = @"refresh_code";
+    NSString *Grant_Type_Value = @"refresh_token";
     NSMutableArray *Parameters_For_Grant_Type =[[NSMutableArray alloc] init];
     [Parameters_For_Grant_Type addObject:Grant_Type_Title];
     [Parameters_For_Grant_Type addObject:Grant_Type_Value];
@@ -240,6 +240,23 @@
 - (NSString *) takeRefreshTokenURLWithCodeParameters {
     NSString *Origin_URL = @"https://healthng.oucare.com/oauth/token";
     return Origin_URL;
+}
+
+- (NSString *) takeBearerTokenURLWithCodeParameters {
+    NSString *Origin_URL = @"https://healthng.oucare.com/api/v1/ouhub/otp";
+    return Origin_URL;
+}
+
+- (NSString *) takeBearerTokenBodyParameters {
+    NSString *Origin_URL = @"https://healthng.oucare.com/api/v1/ouhub/otp";
+    NSString *Device_Type_Title = @"device_type";
+    NSString *Device_Type_Value = @"ios";
+    NSString *Device_UUID_Ttile = @"device_uuid";
+    NSString *Device_UUID_Value = @"11111111-2222-3333-444444444444";
+    
+    NSString *JSON_Data = [NSString stringWithFormat:@"{\"%@\":\"%@\",\"%@\":\"%@\"}", Device_Type_Title, Device_Type_Value, Device_UUID_Ttile, Device_UUID_Value];
+    NSLog(@"Bearer_URL = %@", JSON_Data);
+    return JSON_Data;
 }
 
 - (NSString *) Parameters_Merge : (NSMutableArray *) Parameters {

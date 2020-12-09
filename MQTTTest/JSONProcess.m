@@ -5,13 +5,13 @@
 //  Created by louie on 2020/12/8.
 //
 
-#import "OAuth2ForOuhealth.h"
+#import "JSONProcess.h"
 
-@interface OAuth2ForOuhealth ()
+@interface JSONProcess ()
 
 @end
 
-@implementation OAuth2ForOuhealth
+@implementation JSONProcess
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -46,5 +46,16 @@
     NSString *Token = [Remain_String substringWithRange:Token_Range];
     NSLog(@"RefreshTokenABC = %@", Token);
     return Token;
+}
+
+- (NSDictionary *) NSStringToJSONDict : (NSString *) JSON_String {
+    NSData *JsonData = [JSON_String dataUsingEncoding:NSUTF8StringEncoding];
+    NSError *error;
+    
+    id JsonObject = [NSJSONSerialization JSONObjectWithData:JsonData options:0 error:&error];
+    
+    NSDictionary *jsonDictionary = (NSDictionary *)JsonObject;
+    
+    return jsonDictionary;
 }
 @end

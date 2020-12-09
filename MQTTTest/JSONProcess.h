@@ -9,11 +9,11 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface OAuth2ForOuhealth : UIViewController
+@interface JSONProcess : UIViewController
 
 - (NSString *) getAccessTokenThroughHTML : (NSString *) string_For_Search;
 - (NSString *) getRefresgTokenThroughHTML : (NSString *) string_For_Search;
-
+- (NSDictionary *) NSStringToJSONDict : (NSString *) JSON_String;
     
 @end
 

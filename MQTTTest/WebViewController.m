@@ -47,6 +47,7 @@
     [self setupWKWebViewConstain: self.webView];
 }
 
+
 - (void)
 webView:(WKWebView *)webView
 didFinishNavigation:(WKNavigation *)navigation {
@@ -60,31 +61,15 @@ didFinishNavigation:(WKNavigation *)navigation {
     else if ([[URL_Components path]  isEqual: @"/oauth/token"]) {
         NSLog(@"%@", [NSThread currentThread]);
 
+        [[NSNotificationCenter defaultCenter]
+            addObserver:self
+            selector:@selector(getHTMLStringNotification:) //接收到該Notification時要call的function
+            name:@"NotificationName"
+            object:nil];
         HTMLProcess *htmlProcess = [HTMLProcess alloc];
-        OAuth2ForOuhealth *oAuth2ForOuhealth = [OAuth2ForOuhealth alloc];
-        ////
-        //__block NSString *HTML_String = [htmlProcess getHTMLString:webView];
-        __block NSString *HTML_String = nil;
-        //    NSString __block *Return_HTML_String = nil;
-            [webView evaluateJavaScript:@"document.documentElement.outerHTML" completionHandler:^(id result, NSError *error) {
-                NSLog(@"Evaluateerror = %@", error);
-                NSLog(@"Evaluateresult = %@", result);
-                if (error == nil) {
-                    if (result != nil) {
-        //                Return_HTML_String = [NSString stringWithFormat:@"%@", result];
-                        HTML_String = [NSString stringWithFormat:@"%@", result];
-                    }
-                } else {
-                    NSLog(@"evaluateJavaScript error : %@", error.localizedDescription);
-                }
-            }];
-        ////
-        NSLog(@"HTML_String = %@", HTML_String);
-        NSString *Access_Token = [oAuth2ForOuhealth getAccessTokenThroughHTML:HTML_String];
-        NSString *Refresh_Token = [oAuth2ForOuhealth getRefresgTokenThroughHTML:HTML_String];
-        NSLog(@"FinishEva");
-        NSLog(@"Refresh_Token = %@", Refresh_Token);
-//        [self takeRefreshAccesssTokenThroughRefreshToken:Refresh_Token];
+        
+        [htmlProcess getHTMLString   : self
+                     webView         : webView];
     }
     else {
         // 取得 code
@@ -110,6 +95,7 @@ didFinishNavigation:(WKNavigation *)navigation {
     OAuthParameters *oAuthParameters = [OAuthParameters alloc];
     NSString *Body_String = [oAuthParameters Parameters_Merge:[oAuthParameters logInBodyParameters] ];;
     NSData *Body = [Body_String dataUsingEncoding:NSASCIIStringEncoding allowLossyConversion:YES];
+    NSLog(@"BodyTest = %@", Body);
     NSString *postLength = [NSString stringWithFormat:@"%lu", (unsigned long)[Body length]];
 
     NSMutableURLRequest *request = [[NSMutableURLRequest alloc] init];
@@ -194,9 +180,27 @@ didFinishNavigation:(WKNavigation *)navigation {
     [request setHTTPShouldHandleCookies:true];
     [self.webView loadRequest: request];
 }
-- (void) setGetCodeURL {
+
+- (void) takeOTP : (NSString *) Access_Token {
+    OAuthParameters *oAuthParemeters = [OAuthParameters alloc];
+    NSURL *URL = [[NSURL alloc] initWithString: [oAuthParemeters takeBearerTokenURLWithCodeParameters]];
+    NSString *JSON_String = [oAuthParemeters takeBearerTokenBodyParameters];
+    NSData *requestData = [NSData dataWithBytes:[JSON_String UTF8String] length:[JSON_String lengthOfBytesUsingEncoding:NSUTF8StringEncoding]];
     
+    NSString *authValue = [NSString stringWithFormat:@"Bearer %@", Access_Token];
+    
+    NSMutableURLRequest *request = [[NSMutableURLRequest alloc] init];
+    [request setURL:URL];
+    [request setHTTPMethod:@"POST"];
+    [request setHTTPBody:requestData];
+    [request setValue:authValue forHTTPHeaderField:@"Authorization"];
+    [request setValue:@"application/x-www-form-urlencoded" forHTTPHeaderField:@"Content-Type"];
+    [request setHTTPShouldHandleCookies:true];
+
+    [self.webView loadRequest: request];
+
 }
+
 // 在收到 response 後，决定是否跳轉
 -(void)webView:(WKWebView *)webView
 decidePolicyForNavigationResponse:(WKNavigationResponse *)navigationResponse
@@ -332,5 +336,46 @@ decisionHandler:(void (^)(WKNavigationActionPolicy))decisionHandler {
     }];
     headers = [NSHTTPCookie requestHeaderFieldsWithCookies:cookieArray];
     return true;
+}
+
+- (nullable NSString *) getHTMLString : (WKWebView *) webView {
+    __block NSString *Return_HTML_String = nil;
+    
+    [webView evaluateJavaScript:@"document.documentElement.outerHTML"
+              completionHandler:^(id result, NSError *error) {
+        NSLog(@"Evaluateerror = %@", error);
+        NSLog(@"Evaluateresult = %@", result);
+        if (error == nil) {
+            if (result != nil) {
+                Return_HTML_String = [NSString stringWithFormat:@"%@", result];
+            }
+        } else {
+            NSLog(@"evaluateJavaScript error : %@", error.localizedDescription);
+        }
+    }];
+    return Return_HTML_String;
+}
+
+- (void) getHTMLStringNotification:(NSNotification *)notification {
+    NSDictionary * userInfo = [notification userInfo]; //讀取userInfo
+    NSString *HTTP_String_Value = [[userInfo allValues] objectAtIndex:0];
+    NSLog(@"HTTP_String_Value = %@", HTTP_String_Value);
+    
+    HTMLProcess *htmlProcess = [HTMLProcess alloc];
+    NSString *HTTP_String_JSON = [htmlProcess htmlStringToJSONFormatString:HTTP_String_Value];
+    
+    JSONProcess *jsonProcess = [JSONProcess alloc];
+    
+    NSDictionary *jsonDictionary = [jsonProcess NSStringToJSONDict:HTTP_String_JSON];
+
+    NSString *Access_Token = [jsonDictionary valueForKey:@"access_token"];
+    NSString *Refresh_Token = [jsonDictionary valueForKey:@"refresh_token"];
+    
+    NSLog(@"Access_Token = %@", Access_Token);
+    NSLog(@"Refresh_Token123 = %@", Refresh_Token);
+//    暫時沒有使用 Refresh Token 來做 Refresh 的動作
+//    [self takeRefreshAccesssTokenThroughRefreshToken:Refresh_Token];
+    
+    [self takeOTP : Access_Token];
 }
 @end
