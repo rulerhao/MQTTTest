@@ -14,6 +14,7 @@
 #import "URLProcess.h"
 #import "HTMLProcess.h"
 #import "JSONProcess.h"
+#import "RequestOAuth2Steps.h"
 
 NS_ASSUME_NONNULL_BEGIN
 

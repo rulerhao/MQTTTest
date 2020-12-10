@@ -19,7 +19,7 @@
 
 // 取得HTML所以字串
 - (nullable NSString *)
-getHTMLString   : (id) WebView_Controller
+getHTMLString   : (id)                  WebView_Controller
 webView         : (WKWebView *)         WebView {
     __block NSString *Return_HTML_String = nil;
     
@@ -30,7 +30,10 @@ webView         : (WKWebView *)         WebView {
         if (error == nil) {
             if (result != nil) {
                 Return_HTML_String = [NSString stringWithFormat:@"%@", result];
-                NSDictionary *HTML_String_Dict = [NSDictionary dictionaryWithObject:Return_HTML_String forKey:[[WebView URL] path]];
+                NSMutableArray *Information = [[NSMutableArray alloc] init];
+                [Information addObject: Return_HTML_String];
+                [Information addObject: WebView];
+                NSDictionary *HTML_String_Dict = [NSDictionary dictionaryWithObject:Information forKey:[[WebView URL] path]];
                 [[NSNotificationCenter defaultCenter]
                     postNotificationName:@"NotificationName" //Notification以一個字串(Name)下去辨別
                     object:WebView_Controller
