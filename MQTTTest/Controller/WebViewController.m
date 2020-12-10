@@ -41,6 +41,7 @@
     self.webView.UIDelegate = self;
     self.webView.navigationDelegate = self;
     self.webView.allowsBackForwardNavigationGestures = YES;
+
     
     [self.view addSubview:self.webView];
     // Constraint
@@ -58,9 +59,10 @@ didFinishNavigation:(WKNavigation *)navigation {
         [self takeCode];
     }
     // 在取得 Access Token 後
+    // 這裡有兩個可能會進入
+    // 1. 是在完成以 code 來取得 Access token 和 Refresh toekn
+    // 2. 是在完成以 refresh token 來取得 Access token 和 Refresh token
     else if ([[URL_Components path]  isEqual: @"/oauth/token"]) {
-        NSLog(@"%@", [NSThread currentThread]);
-
         [[NSNotificationCenter defaultCenter]
             addObserver:self
             selector:@selector(getHTMLStringNotification:) //接收到該Notification時要call的function
@@ -68,6 +70,12 @@ didFinishNavigation:(WKNavigation *)navigation {
             object:nil];
         HTMLProcess *htmlProcess = [HTMLProcess alloc];
         
+        [htmlProcess getHTMLString   : self
+                     webView         : webView];
+    }
+    else if ([[URL_Components path]  isEqual: @"/api/v1/ouhub/otp"]) {
+        NSLog(@"GetOTP");
+        HTMLProcess *htmlProcess = [HTMLProcess alloc];
         [htmlProcess getHTMLString   : self
                      webView         : webView];
     }
@@ -198,19 +206,15 @@ didFinishNavigation:(WKNavigation *)navigation {
     [request setHTTPShouldHandleCookies:true];
 
     [self.webView loadRequest: request];
-
 }
 
 // 在收到 response 後，决定是否跳轉
+// 步驟請參考公司 pigo 建置的 github document
+// https://github.com/kjws/ouhealth-ng/blob/master/docs/API-OAuth2.md
+// 第一步驟登入後的 response
 -(void)webView:(WKWebView *)webView
 decidePolicyForNavigationResponse:(WKNavigationResponse *)navigationResponse
 decisionHandler:(void (^)(WKNavigationResponsePolicy))decisionHandler {
-    NSLog(@"webViewForResponse = %@", webView);
-    NSLog(@"getResponse");
-    NSLog(@"responseForErrorCode = %@", navigationResponse.response);
-    NSLog(@"ResponseURLNavigateURL = %@", navigationResponse.response.URL);
-    NSLog(@"ResponseURLWebViewURL = %@", webView.URL);
-    NSLog(@"ResponsePath = %@", [[NSURLComponents componentsWithString:navigationResponse.response.URL.absoluteString] path]);
     NSURL *URL = navigationResponse.response.URL;
     NSURLComponents *URL_Components = [NSURLComponents componentsWithString:URL.absoluteString];
     
@@ -220,9 +224,7 @@ decisionHandler:(void (^)(WKNavigationResponsePolicy))decisionHandler {
     NSString *URL_Query = [URL_Components query];
     Parameters = [urlProcess getURLParameters:URL_Query];
     NSLog(@"Parameters = %@", Parameters);
-    // 步驟請參考公司 pigo 建置的 github document
-    // https://github.com/kjws/ouhealth-ng/blob/master/docs/API-OAuth2.md
-    // 第一步驟登入後的 response
+
     if([[URL_Components path]  isEqual: @"/oauth/login"]) {
         decisionHandler(WKNavigationResponsePolicyAllow);
     } else if([[URL_Components path]  isEqual: @"/oauth/token"]) {
@@ -230,15 +232,7 @@ decisionHandler:(void (^)(WKNavigationResponsePolicy))decisionHandler {
     } else {
         decisionHandler(WKNavigationResponsePolicyAllow);
     }
-//    else if ([[URL_Components path]  isEqual: @"/oauth/authorize"]) {
-//        NSLog(@"Get Code Location = %@", [[navigationResponse response] URL]);
-//        decisionHandler(WKNavigationResponsePolicyAllow);
-//    }
-//    else {
-//        decisionHandler(WKNavigationResponsePolicyAllow);
-//    }
 }
-// 読み込み開始
 - (void)
 webView:(WKWebView *)webView
 didStartProvisionalNavigation:(WKNavigation *)navigation {
@@ -338,44 +332,41 @@ decisionHandler:(void (^)(WKNavigationActionPolicy))decisionHandler {
     return true;
 }
 
-- (nullable NSString *) getHTMLString : (WKWebView *) webView {
-    __block NSString *Return_HTML_String = nil;
-    
-    [webView evaluateJavaScript:@"document.documentElement.outerHTML"
-              completionHandler:^(id result, NSError *error) {
-        NSLog(@"Evaluateerror = %@", error);
-        NSLog(@"Evaluateresult = %@", result);
-        if (error == nil) {
-            if (result != nil) {
-                Return_HTML_String = [NSString stringWithFormat:@"%@", result];
-            }
-        } else {
-            NSLog(@"evaluateJavaScript error : %@", error.localizedDescription);
-        }
-    }];
-    return Return_HTML_String;
-}
-
 - (void) getHTMLStringNotification:(NSNotification *)notification {
     NSDictionary * userInfo = [notification userInfo]; //讀取userInfo
+    NSString *HTTP_String_Key = [[userInfo allKeys] objectAtIndex:0];
     NSString *HTTP_String_Value = [[userInfo allValues] objectAtIndex:0];
-    NSLog(@"HTTP_String_Value = %@", HTTP_String_Value);
+    NSLog(@"HTTP_String_Key = %@", HTTP_String_Key);
     
     HTMLProcess *htmlProcess = [HTMLProcess alloc];
     NSString *HTTP_String_JSON = [htmlProcess htmlStringToJSONFormatString:HTTP_String_Value];
     
-    JSONProcess *jsonProcess = [JSONProcess alloc];
-    
-    NSDictionary *jsonDictionary = [jsonProcess NSStringToJSONDict:HTTP_String_JSON];
+    JSONProcess *Json_Process = [JSONProcess alloc];
+    NSDictionary *Json_Dictionary = [Json_Process NSStringToJSONDict:HTTP_String_JSON];
 
-    NSString *Access_Token = [jsonDictionary valueForKey:@"access_token"];
-    NSString *Refresh_Token = [jsonDictionary valueForKey:@"refresh_token"];
-    
-    NSLog(@"Access_Token = %@", Access_Token);
-    NSLog(@"Refresh_Token123 = %@", Refresh_Token);
-//    暫時沒有使用 Refresh Token 來做 Refresh 的動作
-//    [self takeRefreshAccesssTokenThroughRefreshToken:Refresh_Token];
-    
-    [self takeOTP : Access_Token];
+    if([HTTP_String_Key isEqual: @"/oauth/token"]) {
+        NSString *Access_Token = [Json_Dictionary valueForKey:@"access_token"];
+        NSString *Refresh_Token = [Json_Dictionary valueForKey:@"refresh_token"];
+        
+        NSLog(@"Access_Token = %@", Access_Token);
+        NSLog(@"Refresh_Token123 = %@", Refresh_Token);
+        
+        //    暫時沒有使用 Refresh Token 來做 Refresh 的動作
+        //    [self takeRefreshAccesssTokenThroughRefreshToken:Refresh_Token];
+        
+        [self takeOTP : Access_Token];
+    } else if ([HTTP_String_Key  isEqual: @"/api/v1/ouhub/otp"]) {
+        NSString *Client_ID = [Json_Dictionary valueForKey:@"client_id"];
+        NSString *User_Name = [Json_Dictionary valueForKey:@"username"];
+        NSString *OTP = [Json_Dictionary valueForKey:@"otp"];
+        NSString *OTP_Expired = [Json_Dictionary valueForKey:@"otp_expired"];
+        
+        NSLog(@"OTPValue = %@", Client_ID);
+        NSLog(@"OTPValue = %@", User_Name);
+        NSLog(@"OTPValue = %@", OTP);
+        NSLog(@"OTPValue = %@", OTP_Expired);
+
+        //[self dismissViewControllerAnimated:YES completion:nil];
+    }
 }
 @end

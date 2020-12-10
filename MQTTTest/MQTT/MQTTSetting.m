@@ -34,6 +34,7 @@
     Transport.host = @"healthng.oucare.com";
     Transport.port = 1885;
     Transport.tls = YES;
+    Transport.path = @"/ws";
     
     // Session Setting
     Session = [[MQTTSession alloc] init];

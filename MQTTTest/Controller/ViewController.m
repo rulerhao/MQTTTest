@@ -32,16 +32,18 @@ MQTTSession* MySeccion;
 
 - (void) viewDidAppear:(BOOL)animated
 {
+    NSLog(@"viewDidAppear");
     // set storyboard
     UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
     // set web viewcontroller
     WebViewController *webViewController = [storyboard instantiateViewControllerWithIdentifier:@"WebViewController"];
     // set viewcontroller style
     // full screen
-    webViewController.modalPresentationStyle = UIModalPresentationOverFullScreen;
+    //webViewController.modalPresentationStyle = UIModalPresentationOverFullScreen;
     // start to change
     [self presentViewController:webViewController animated:YES completion:nil];
 
+    NSLog(@"HaveANiceDay123123");
 }
 /**
  * 按下 Publish button 的觸發事件

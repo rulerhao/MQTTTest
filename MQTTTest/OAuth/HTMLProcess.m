@@ -30,7 +30,7 @@ webView         : (WKWebView *)         WebView {
         if (error == nil) {
             if (result != nil) {
                 Return_HTML_String = [NSString stringWithFormat:@"%@", result];
-                NSDictionary *HTML_String_Dict = [NSDictionary dictionaryWithObject:Return_HTML_String forKey:@"HTML_String"];
+                NSDictionary *HTML_String_Dict = [NSDictionary dictionaryWithObject:Return_HTML_String forKey:[[WebView URL] path]];
                 [[NSNotificationCenter defaultCenter]
                     postNotificationName:@"NotificationName" //Notification以一個字串(Name)下去辨別
                     object:WebView_Controller
