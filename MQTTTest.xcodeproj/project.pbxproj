@@ -17,7 +17,7 @@
 		631E18A82582090500C98B85 /* RequestOAuth2Steps.m in Sources */ = {isa = PBXBuildFile; fileRef = 631E18A72582090500C98B85 /* RequestOAuth2Steps.m */; };
 		633E6CCF257DC14200FC6A36 /* URLProcess.m in Sources */ = {isa = PBXBuildFile; fileRef = 633E6CCE257DC14200FC6A36 /* URLProcess.m */; };
 		634B87C3256769B7000A01B6 /* TypesConversion.m in Sources */ = {isa = PBXBuildFile; fileRef = 634B87C2256769B7000A01B6 /* TypesConversion.m */; };
-		6393E7F92570A74700D4E963 /* WebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6393E7F82570A74700D4E963 /* WebViewController.m */; };
+		6393E7F92570A74700D4E963 /* OAuth2Main.m in Sources */ = {isa = PBXBuildFile; fileRef = 6393E7F82570A74700D4E963 /* OAuth2Main.m */; };
 		6393E8102570DC0B00D4E963 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6393E80E2570DC0B00D4E963 /* Main.storyboard */; };
 		63B33DDC2563CAA400FBD478 /* Sensor.pbobjc.m in Sources */ = {isa = PBXBuildFile; fileRef = 63B33DDA2563CAA300FBD478 /* Sensor.pbobjc.m */; };
 		63BBE590257786C200F172A8 /* OAuthParameters.m in Sources */ = {isa = PBXBuildFile; fileRef = 63BBE58F257786C200F172A8 /* OAuthParameters.m */; };
@@ -57,8 +57,8 @@
 		633E6CCE257DC14200FC6A36 /* URLProcess.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = URLProcess.m; sourceTree = "<group>"; };
 		634B87C1256769B7000A01B6 /* TypesConversion.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TypesConversion.h; sourceTree = "<group>"; };
 		634B87C2256769B7000A01B6 /* TypesConversion.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TypesConversion.m; sourceTree = "<group>"; };
-		6393E7F72570A74700D4E963 /* WebViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WebViewController.h; sourceTree = "<group>"; };
-		6393E7F82570A74700D4E963 /* WebViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WebViewController.m; sourceTree = "<group>"; };
+		6393E7F72570A74700D4E963 /* OAuth2Main.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OAuth2Main.h; sourceTree = "<group>"; };
+		6393E7F82570A74700D4E963 /* OAuth2Main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = OAuth2Main.m; sourceTree = "<group>"; };
 		6393E7FB2570A87300D4E963 /* MQTTTest.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = MQTTTest.entitlements; sourceTree = "<group>"; };
 		6393E8012570AD6B00D4E963 /* MQTTTestDebug.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = MQTTTestDebug.entitlements; sourceTree = "<group>"; };
 		6393E80F2570DC0B00D4E963 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -138,8 +138,6 @@
 			children = (
 				63FF2B57255BD14E008A4FBD /* ViewController.h */,
 				63FF2B58255BD14E008A4FBD /* ViewController.m */,
-				6393E7F72570A74700D4E963 /* WebViewController.h */,
-				6393E7F82570A74700D4E963 /* WebViewController.m */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -158,6 +156,8 @@
 		631E18922581B16700C98B85 /* MQTT */ = {
 			isa = PBXGroup;
 			children = (
+				63EA07D2256CD9C900A04C55 /* MQTTMain.h */,
+				63EA07D3256CD9C900A04C55 /* MQTTMain.m */,
 				630A2108256603CA001F56DF /* StampTimeProcess.h */,
 				630A2109256603CA001F56DF /* StampTimeProcess.m */,
 				630A21122566064D001F56DF /* PublishDataImplement.h */,
@@ -166,8 +166,6 @@
 				63C5D2FB256BA9D30075843D /* MQTTSetting.m */,
 				63EA07C6256CA52500A04C55 /* MQTTConnectImplementation.h */,
 				63EA07C7256CA52500A04C55 /* MQTTConnectImplementation.m */,
-				63EA07D2256CD9C900A04C55 /* MQTTMain.h */,
-				63EA07D3256CD9C900A04C55 /* MQTTMain.m */,
 				63C5D2F5256B65740075843D /* IDFVProcess.h */,
 				63C5D2F6256B65740075843D /* IDFVProcess.m */,
 				631E18A22581FDEE00C98B85 /* MQTTSubscribeSetting.h */,
@@ -179,6 +177,8 @@
 		631E18932581B18300C98B85 /* OAuth */ = {
 			isa = PBXGroup;
 			children = (
+				6393E7F72570A74700D4E963 /* OAuth2Main.h */,
+				6393E7F82570A74700D4E963 /* OAuth2Main.m */,
 				631AD144257F5D2A00328730 /* HTMLProcess.h */,
 				631AD145257F5D2A00328730 /* HTMLProcess.m */,
 				63BBE58E257786C200F172A8 /* OAuthParameters.h */,
@@ -225,12 +225,12 @@
 				6393E80E2570DC0B00D4E963 /* Main.storyboard */,
 				63C21D6425650F0700EC3A93 /* StringProcessFunc.h */,
 				63C21D6525650F0700EC3A93 /* StringProcessFunc.m */,
+				634B87C1256769B7000A01B6 /* TypesConversion.h */,
+				634B87C2256769B7000A01B6 /* TypesConversion.m */,
 				63FF2B5D255BD151008A4FBD /* Assets.xcassets */,
 				63FF2B5F255BD151008A4FBD /* LaunchScreen.storyboard */,
 				63FF2B62255BD151008A4FBD /* Info.plist */,
 				63FF2B63255BD151008A4FBD /* main.m */,
-				634B87C1256769B7000A01B6 /* TypesConversion.h */,
-				634B87C2256769B7000A01B6 /* TypesConversion.m */,
 			);
 			path = MQTTTest;
 			sourceTree = "<group>";
@@ -369,7 +369,7 @@
 			files = (
 				630A21142566064D001F56DF /* PublishDataImplement.m in Sources */,
 				630B1D5B25626D8400B4F2C6 /* sensor.proto in Sources */,
-				6393E7F92570A74700D4E963 /* WebViewController.m in Sources */,
+				6393E7F92570A74700D4E963 /* OAuth2Main.m in Sources */,
 				634B87C3256769B7000A01B6 /* TypesConversion.m in Sources */,
 				63B33DDC2563CAA400FBD478 /* Sensor.pbobjc.m in Sources */,
 				63FF2B59255BD14E008A4FBD /* ViewController.m in Sources */,

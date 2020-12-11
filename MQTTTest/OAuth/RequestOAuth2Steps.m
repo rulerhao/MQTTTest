@@ -19,22 +19,24 @@
 
 // 登錄用的URL設定
 - (void)
-logIn:(NSString *)requestURLString
-wKWebView : (WKWebView *) WKWebView {
+logIn       :   (NSString *)    requestURLString
+wKWebView   :   (WKWebView *)   WKWebView {
     NSURL *url = [[NSURL alloc] initWithString: requestURLString];
     OAuthParameters *oAuthParameters = [OAuthParameters alloc];
     NSString *Body_String = [oAuthParameters Parameters_Merge:[oAuthParameters logInBodyParameters] ];;
     NSData *Body = [Body_String dataUsingEncoding:NSASCIIStringEncoding allowLossyConversion:YES];
     NSLog(@"BodyTest = %@", Body);
     NSString *postLength = [NSString stringWithFormat:@"%lu", (unsigned long)[Body length]];
-
+    NSLog(@"WKWebViewDelegate = %@", [WKWebView UIDelegate]);
     NSMutableURLRequest *request = [[NSMutableURLRequest alloc] init];
+    NSLog(@"WKWebView = %@", WKWebView);
     [request setURL:url];
     [request setHTTPMethod:@"POST"];
     [request setHTTPBody:Body];
     [request setValue:postLength forHTTPHeaderField:@"Content-Length"];
     [request setValue:@"application/x-www-form-urlencoded" forHTTPHeaderField:@"Content-Type"];
     [request setHTTPShouldHandleCookies:true];
+    NSLog(@"Request = %@", request);
     [WKWebView loadRequest: request];
 }
 

@@ -13,7 +13,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface MQTTMain : UIViewController <MQTTSessionDelegate>
 
-- (void) MQTTStart;
+- (void) MQTTStart : (NSArray *) OAuth_Information;
 
 - (void) MQTTPublishImplementDefalut;
 

@@ -18,8 +18,9 @@
 #import "IDFVProcess.h"
 #import "MQTTSetting.h"
 #import "MQTTMain.h"
-#import "WebViewController.h"
+#import "OAuth2Main.h"
 #import <OIDAuthorizationRequest.h>
+
 @interface ViewController : UIViewController <MQTTSessionDelegate>
 
 @end

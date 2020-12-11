@@ -5,45 +5,44 @@
 //  Created by louie on 2020/11/27.
 //
 
-#import "WebViewController.h"
+#import "OAuth2Main.h"
 
 
-@interface WebViewController ()
-
+@interface OAuth2Main ()
+{
+    WKWebView *WKWeb_View;
+    ViewController *View_Controller_For_Notify;
+}
 @end
 
-@implementation WebViewController
+@implementation OAuth2Main
 
 /**
  * Access Token 可以維持大概一個小時
  */
-- (void)viewDidLoad {
-    [super viewDidLoad];
-}
 
-- (void)viewDidAppear:(BOOL)animated
-{
-    WKWebView *WKWeb_View;
-    WKWeb_View = [self setupWebView : (WKWebView *) WKWeb_View];
+- (void)InitEnter : (UIViewController *) View_Controller {
+    View_Controller_For_Notify = View_Controller;
+    WKWeb_View = [[WKWebView alloc] init];
+    [self setupWebView : WKWeb_View];
     OAuthParameters *oAuthParameters = [OAuthParameters alloc];
     NSString *RequestURL = [oAuthParameters logInURLWithParameters];
     RequestOAuth2Steps *requestOAuth2Steps = [RequestOAuth2Steps alloc];
-    [requestOAuth2Steps     logIn: RequestURL
-                        wKWebView: WKWeb_View];
+    [requestOAuth2Steps     logIn : RequestURL
+                        wKWebView : WKWeb_View];
     // 當登錄完成後做 get code 動作
     NSLog(@"afterLogin");
 }
 
-- (WKWebView *)setupWebView : (WKWebView *) WKWeb_View {
-    WKWeb_View = [[WKWebView alloc] initWithFrame: CGRectZero];
-    WKWeb_View.UIDelegate = self;
-    WKWeb_View.navigationDelegate = self;
-    WKWeb_View.allowsBackForwardNavigationGestures = YES;
-
-    [self.view addSubview:WKWeb_View];
+- (void)
+setupWebView : (WKWebView *) WKWeb_View {
+    [WKWeb_View setFrame:CGRectZero];
+    [WKWeb_View setUIDelegate:self];
+    [WKWeb_View setNavigationDelegate:self];
+    [WKWeb_View setAllowsBackForwardNavigationGestures:YES];
     // Constraint
-    [self setupWKWebViewConstain: WKWeb_View];
-    return WKWeb_View;
+//    [self setupWKWebViewConstain : Base_View
+//                       wKWebView : WKWeb_View];
 }
 
 - (void)
@@ -105,6 +104,7 @@ didFinishNavigation :(WKNavigation *)   navigation {
 webView                             : (WKWebView *)                             webView
 decidePolicyForNavigationResponse   : (WKNavigationResponse *)                  navigationResponse
 decisionHandler                     : (void (^)(WKNavigationResponsePolicy))    decisionHandler {
+    NSLog(@"NavigationResponse");
     NSURL *URL = navigationResponse.response.URL;
     NSURLComponents *URL_Components = [NSURLComponents componentsWithString:URL.absoluteString];
     
@@ -138,7 +138,6 @@ decisionHandler:(void (^)(WKNavigationActionPolicy))decisionHandler {
     if (navigationAction.navigationType == WKNavigationTypeLinkActivated) {
         decisionHandler(WKNavigationActionPolicyCancel);
         NSLog(@"WKNavigationActionPolicyCancel");
-
     } else {
         decisionHandler(WKNavigationActionPolicyAllow);
         NSLog(@"WKNavigationActionPolicyAllow");
@@ -146,7 +145,8 @@ decisionHandler:(void (^)(WKNavigationActionPolicy))decisionHandler {
 }
 
 /// autoLayout 設定
-- (void)setupWKWebViewConstain: (WKWebView *)webView {
+- (void)setupWKWebViewConstain : (UIView *) ViewController
+                     wKWebView : (WKWebView *) webView {
     webView.translatesAutoresizingMaskIntoConstraints = NO;
     
     // 四個邊的距離設定為零
@@ -154,7 +154,7 @@ decisionHandler:(void (^)(WKNavigationActionPolicy))decisionHandler {
     [NSLayoutConstraint constraintWithItem: webView
                                  attribute: NSLayoutAttributeTop
                                  relatedBy: NSLayoutRelationEqual
-                                    toItem: self.view
+                                    toItem: ViewController
                                  attribute: NSLayoutAttributeTop
                                 multiplier: 1.0
                                   constant: 0];
@@ -163,7 +163,7 @@ decisionHandler:(void (^)(WKNavigationActionPolicy))decisionHandler {
     [NSLayoutConstraint constraintWithItem: webView
                                  attribute: NSLayoutAttributeBottom
                                  relatedBy: NSLayoutRelationEqual
-                                    toItem: self.view
+                                    toItem: ViewController
                                  attribute: NSLayoutAttributeBottom
                                 multiplier: 1.0
                                   constant: 0];
@@ -172,7 +172,7 @@ decisionHandler:(void (^)(WKNavigationActionPolicy))decisionHandler {
     [NSLayoutConstraint constraintWithItem: webView
                                  attribute: NSLayoutAttributeLeft
                                  relatedBy: NSLayoutRelationEqual
-                                    toItem: self.view
+                                    toItem: ViewController
                                  attribute: NSLayoutAttributeLeft
                                 multiplier: 1.0
                                   constant: 0];
@@ -181,7 +181,7 @@ decisionHandler:(void (^)(WKNavigationActionPolicy))decisionHandler {
     [NSLayoutConstraint constraintWithItem: webView
                                  attribute: NSLayoutAttributeRight
                                  relatedBy: NSLayoutRelationEqual
-                                    toItem: self.view
+                                    toItem: ViewController
                                  attribute: NSLayoutAttributeRight
                                 multiplier: 1.0
                                   constant: 0];
@@ -193,7 +193,7 @@ decisionHandler:(void (^)(WKNavigationActionPolicy))decisionHandler {
                              rightConstraint
                              ];
     
-    [self.view addConstraints:constraints];
+    [ViewController addConstraints:constraints];
 }
 
 - (BOOL) HaveLogInCookies : (WKWebView *) WKWeb_View {
@@ -260,6 +260,18 @@ getHTMLStringNotification:(NSNotification *)notification {
         NSLog(@"OTPValue = %@", OTP);
         NSLog(@"OTPValue = %@", OTP_Expired);
 
+        // Set OTP Value As Dictionary To Send TO Notification Reciever;
+        NSMutableArray *OTP_Information = [[NSMutableArray alloc] init];
+        [OTP_Information addObject: Client_ID];
+        [OTP_Information addObject: User_Name];
+        [OTP_Information addObject: OTP];
+        [OTP_Information addObject: OTP_Expired];
+        NSDictionary *OTP_Information_Dictionary = [NSDictionary dictionaryWithObject:OTP_Information forKey:User_Name];
+        // Set notification to trigger getOAuth
+        [[NSNotificationCenter defaultCenter]
+            postNotificationName:@"getOAuthOTPNotification" //Notification以一個字串(Name)下去辨別
+            object:View_Controller_For_Notify
+            userInfo:OTP_Information_Dictionary];
         //[self dismissViewControllerAnimated:YES completion:nil];
     }
 }

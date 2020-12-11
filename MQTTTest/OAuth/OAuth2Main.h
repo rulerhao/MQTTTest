@@ -18,7 +18,9 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface WebViewController : UIViewController <WKUIDelegate, WKNavigationDelegate>
+@interface OAuth2Main : UIView <WKUIDelegate, WKNavigationDelegate>
+
+- (void)InitEnter : (UIViewController *) View_Controller;
 
 @end
 

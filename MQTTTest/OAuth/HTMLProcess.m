@@ -19,7 +19,7 @@
 
 // 取得HTML所以字串
 - (nullable NSString *)
-getHTMLString   : (id)                  WebView_Controller
+getHTMLString   : (id)                  OAuth2Main
 webView         : (WKWebView *)         WebView {
     __block NSString *Return_HTML_String = nil;
     
@@ -36,7 +36,7 @@ webView         : (WKWebView *)         WebView {
                 NSDictionary *HTML_String_Dict = [NSDictionary dictionaryWithObject:Information forKey:[[WebView URL] path]];
                 [[NSNotificationCenter defaultCenter]
                     postNotificationName:@"NotificationName" //Notification以一個字串(Name)下去辨別
-                    object:WebView_Controller
+                    object:OAuth2Main
                     userInfo:HTML_String_Dict];
             }
         } else {
